@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\DNU.CanteenConnect.Web.props" />
+</Project>

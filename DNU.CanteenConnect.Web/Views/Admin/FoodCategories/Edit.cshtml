@@ -1,0 +1,41 @@
+﻿@page
+@model DNU.CanteenConnect.Web.Pages.Admin.FoodCategories.EditModel
+
+@{
+    ViewData["Title"] = "Sửa Danh mục Món ăn";
+}
+
+<div class="container mt-5 pt-5">
+    <h1 class="section-title">@ViewData["Title"]</h1>
+
+    <div class="card shadow-sm mx-auto rounded-md" style="max-width: 600px;">
+        <div class="card-header text-white py-3" style="background-color: var(--primary-color);"> 
+            <h5 class="mb-0"><i class="fas fa-edit me-2"></i> Chỉnh sửa Thông tin Danh mục</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="FoodCategory.CategoryId" />
+                
+                <div class="form-group mb-3">
+                    <label asp-for="FoodCategory.Name" class="form-label"></label>
+                    <input asp-for="FoodCategory.Name" class="form-control" />
+                    <span asp-validation-for="FoodCategory.Name" class="text-danger mt-1 d-block"></span>
+                </div>
+                
+                <div class="mt-4 d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary me-2">
+                        <i class="fas fa-save me-2"></i> Lưu thay đổi
+                    </button>
+                    <a asp-page="./Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i> Quay lại
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

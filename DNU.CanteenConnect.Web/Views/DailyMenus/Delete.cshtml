@@ -1,0 +1,48 @@
+﻿@model DNU.CanteenConnect.Web.Models.DailyMenu
+
+@{
+    ViewData["Title"] = "Xóa Thực đơn";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1>
+
+            <h3>Bạn có chắc chắn muốn xóa thực đơn này không?</h3>
+            <hr />
+            @if (Model != null)
+            {
+                <dl class="row">
+                    <dt class="col-sm-4">Ngày Thực đơn</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.MenuDate)</dd>
+
+                    <dt class="col-sm-4">Nhà ăn</dt>
+                    <dd class="col-sm-8">
+                        @if (Model.Canteen != null)
+                        {
+                            @Html.DisplayFor(model => model.Canteen.Name)
+                        }
+                        else
+                        {
+                            <span>Không xác định</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-4">Ghi chú</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Notes)</dd>
+                </dl>
+
+                <form asp-action="Delete" class="text-center mt-3">
+                    <input type="hidden" asp-for="MenuId" />
+                    <input type="submit" value="Xóa" class="btn btn-danger me-2" />
+                    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+                </form>
+            }
+            else
+            {
+                <p class="text-danger text-center">Không tìm thấy thông tin thực đơn để xóa.</p>
+            }
+        </div>
+    </div>
+</div>

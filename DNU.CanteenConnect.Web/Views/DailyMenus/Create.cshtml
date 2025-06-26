@@ -1,0 +1,44 @@
+﻿@model DNU.CanteenConnect.Web.Models.DailyMenu
+
+@{
+    ViewData["Title"] = "Tạo Thực đơn Mới";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1>
+            
+            <h4>Thông tin Thực đơn</h4>
+            <hr />
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group mb-3">
+                    <label asp-for="MenuDate" class="control-label"></label>
+                    <input asp-for="MenuDate" class="form-control" type="date" />
+                    <span asp-validation-for="MenuDate" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="CanteenId" class="control-label"></label>
+                    <select asp-for="CanteenId" class="form-control" asp-items="ViewBag.CanteenId">
+                        <option value="">-- Chọn Nhà ăn (Tùy chọn) --</option>
+                    </select>
+                    <span asp-validation-for="CanteenId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3 text-center">
+                    <input type="submit" value="Tạo Mới" class="btn btn-primary me-2" />
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại Danh sách</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DNU.CanteenConnect.Web.Models
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<ul class="navbar-nav ms-auto mb-2 mb-lg-0"> @* Sử dụng ms-auto để đẩy các nút này sang phải *@
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item d-flex align-items-center me-lg-2"> @* Thêm d-flex và align-items-center để căn chỉnh tốt hơn *@
+            <a id="manage" class="nav-link text-primary-dark user-greeting" asp-controller="Profile" asp-action="Index" title="Quản lý hồ sơ">
+                <i class="fas fa-user-circle me-2"></i> Xin chào @UserManager.GetUserName(User)!
+            </a>
+        </li>
+        <li class="nav-item">
+            @* FORM ĐĂNG XUẤT: Rất quan trọng phải là POST và có asp-antiforgery="true" *@
+            <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" asp-antiforgery="true">
+                <button id="logout" type="submit" class="nav-link logout-btn">
+                    <i class="fas fa-sign-out-alt me-2"></i> ĐĂNG XUẤT
+                </button>
+            </form>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link register-btn" id="register" asp-controller="Account" asp-action="Register">ĐĂNG KÝ</a> @* Đã sửa asp-page thành asp-controller/asp-action *@
+        </li>
+        <li class="nav-item">
+            <a class="nav-link login-btn" id="login" asp-controller="Account" asp-action="Login">ĐĂNG NHẬP</a> @* Đã sửa asp-page thành asp-controller/asp-action *@
+        </li>
+    }
+</ul>

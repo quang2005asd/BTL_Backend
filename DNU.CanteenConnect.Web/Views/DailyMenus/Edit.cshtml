@@ -1,0 +1,87 @@
+﻿@model DNU.CanteenConnect.Web.Models.DailyMenu
+
+@{
+    ViewData["Title"] = "Sửa Thực đơn";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 800px;">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1>
+            
+            <h4>Thông tin Thực đơn</h4>
+            <hr />
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="MenuId" />
+                <div class="form-group mb-3">
+                    <label asp-for="MenuDate" class="control-label"></label>
+                    <input asp-for="MenuDate" class="form-control" type="date" />
+                    <span asp-validation-for="MenuDate" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="CanteenId" class="control-label"></label>
+                    <select asp-for="CanteenId" class="form-control" asp-items="ViewBag.CanteenId">
+                        <option value="">-- Chọn Nhà ăn (Tùy chọn) --</option>
+                    </select>
+                    <span asp-validation-for="CanteenId" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="Notes" class="control-label"></label>
+                    <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Notes" class="text-danger"></span>
+                </div>
+                <div class="form-group mt-3 text-center">
+                    <input type="submit" value="Lưu" class="btn btn-primary me-2" />
+                    <a asp-action="Index" class="btn btn-secondary">Quay lại Danh sách</a>
+                </div>
+            </form>
+
+            <h4 class="mt-5">Thêm/Xóa món ăn khỏi Thực đơn</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Thêm món ăn</h5>
+                    <form asp-controller="DailyMenus" asp-action="AddFoodItem" method="post">
+                        <input type="hidden" name="menuId" value="@Model.MenuId" />
+                        <div class="input-group mb-3">
+                            <select name="foodItemId" class="form-control" asp-items="ViewBag.FoodItemOptions">
+                                <option value="">-- Chọn Món ăn --</option>
+                            </select>
+                            <button type="submit" class="btn btn-success">Thêm</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <h5>Các món hiện có</h5>
+                    @if (Model.MenuItems != null && Model.MenuItems.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var menuItem in Model.MenuItems)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @* Đã sửa menuItem.FoodItem! thành menuItem.FoodItem! để truy cập thuộc tính của FoodItem *@
+                                    <span>@menuItem.FoodItem!.Name - @menuItem.FoodItem!.FoodCategory!.Name (@menuItem.FoodItem!.Price.ToString("N0") VNĐ)</span>
+                                    <form asp-controller="DailyMenus" asp-action="RemoveFoodItem" method="post">
+                                        <input type="hidden" name="menuId" value="@Model.MenuId" />
+                                        @* Đã sửa `menuItem.FoodItemId` thành `menuItem.ItemId` để khớp với model MenuItem *@
+                                        <input type="hidden" name="foodItemId" value="@menuItem.ItemId" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Xóa</button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Chưa có món ăn nào trong thực đơn này.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

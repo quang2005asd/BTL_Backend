@@ -1,0 +1,73 @@
+﻿@model DNU.CanteenConnect.Web.Models.User
+
+@{
+    ViewData["Title"] = "Hồ sơ của tôi";
+}
+
+<div class="container mt-5 pt-5 pb-5">
+    <h1 class="section-title">@ViewData["Title"]</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show animate__animated animate__fadeInDown" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show animate__animated animate__fadeInDown" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        <div class="card shadow-lg p-4 rounded-xl profile-card animate__animated animate__fadeInUp">
+            <div class="card-body">
+                <h4 class="card-title text-center mb-4 text-primary-dark">
+                    <i class="fas fa-user-circle me-2"></i> Thông tin cá nhân
+                </h4>
+                <hr class="mb-4" />
+
+                <dl class="row profile-details">
+                    <dt class="col-sm-4 text-muted">Tên người dùng:</dt>
+                    <dd class="col-sm-8 fw-bold text-primary-dark">@Html.DisplayFor(model => model.UserName)</dd>
+
+                    <dt class="col-sm-4 text-muted">Email:</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                    <dt class="col-sm-4 text-muted">Số điện thoại:</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.PhoneNumber) ? "Chưa cung cấp" : Html.DisplayFor(model => model.PhoneNumber))</dd>
+
+                    <dt class="col-sm-4 text-muted">Địa chỉ:</dt>
+                    <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Address) ? "Chưa cung cấp" : Html.DisplayFor(model => model.Address))</dd>
+
+                    <dt class="col-sm-4 text-muted">Ngày tham gia:</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedDate)</dd> @* CẬP NHẬT ĐỂ HIỂN THỊ CreatedDate *@
+                </dl>
+
+                <div class="text-center mt-5">
+                    <a asp-controller="Profile" asp-action="Edit" class="btn btn-primary btn-lg animate-button">
+                        <i class="fas fa-edit me-2"></i> Chỉnh sửa Hồ sơ
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-5 animate__animated animate__fadeIn" role="alert">
+            <h4 class="alert-heading">Không tìm thấy thông tin hồ sơ!</h4>
+            <p>Vui lòng thử đăng nhập lại hoặc liên hệ quản trị viên.</p>
+            <hr>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-info">Đăng nhập</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+}

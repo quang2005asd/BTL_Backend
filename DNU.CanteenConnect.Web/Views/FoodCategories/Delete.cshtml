@@ -1,0 +1,43 @@
+﻿@model DNU.CanteenConnect.Web.Models.FoodCategory
+
+@{
+    ViewData["Title"] = "Xóa Danh mục";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;"> @* Căn giữa nội dung *@
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;"> @* Tạo khung card *@
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1> @* Tiêu đề trang *@
+
+            <h3>Bạn có chắc chắn muốn xóa danh mục này không?</h3>
+            <hr />
+            @if (Model != null)
+            {
+                <dl class="row">
+                    <dt class="col-sm-4"> @* Tăng kích thước cột cho nhãn *@
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-8"> @* Tăng kích thước cột cho giá trị *@
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+
+                <form asp-action="Delete" class="text-center mt-3"> @* Sử dụng asp-action thay vì method="post" *@
+                    <input type="hidden" asp-for="CategoryId" /> @* Hidden field để gửi ID danh mục cần xóa *@
+                    <input type="submit" value="Xóa" class="btn btn-danger me-2" /> @* Nút Xóa *@
+                    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+                </form>
+            }
+            else
+            {
+                <p class="text-danger text-center">Không tìm thấy thông tin danh mục món ăn để xóa.</p> @* Căn giữa thông báo lỗi *@
+            }
+        </div>
+    </div>
+</div>

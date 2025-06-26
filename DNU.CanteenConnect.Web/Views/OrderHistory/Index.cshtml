@@ -1,0 +1,96 @@
+﻿@model IEnumerable<DNU.CanteenConnect.Web.Models.Order>
+
+@{
+    ViewData["Title"] = "Lịch sử Đơn hàng";
+}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="text-center section-title mb-5">Lịch sử Đơn hàng của tôi</h1>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="card shadow-lg p-4 mb-5">
+        <div class="card-body p-0">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mt-3">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Mã Đơn hàng</th>
+                                <th>Ngày Đặt hàng</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Phương thức TT</th>
+                                <th>Nhà ăn</th>
+                                <th class="text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>#@Html.DisplayFor(modelItem => item.OrderId)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
+                                    <td>@item.TotalAmount.ToString("N0") VNĐ</td>
+                                    <td>
+                                        <span class="badge 
+                                            @(item.Status == "Completed" ? "bg-success" : 
+                                              item.Status == "Paid" ? "bg-success" : 
+                                              item.Status == "AwaitingPaymentConfirmation" ? "bg-info" : 
+                                              item.Status == "PaymentSubmitted" ? "bg-warning text-dark" : 
+                                              item.Status == "Pending" ? "bg-secondary" : 
+                                              item.Status == "Preparing" ? "bg-primary" : 
+                                              item.Status == "Ready" ? "bg-success" : 
+                                              item.Status == "Cancelled" ? "bg-danger" : 
+                                              "bg-secondary")">
+                                            @DNU.CanteenConnect.Web.Controllers.OrderHistoryController.GetStatusDisplayName(item.Status) @* Sử dụng hàm helper để dịch trạng thái *@
+                                        </span>
+                                    </td>
+                                    <td>@(item.PaymentMethod == "BankTransfer" ? "Chuyển khoản" : "COD")</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Canteen!.Name)</td> @* Hiển thị tên nhà ăn *@
+                                    <td class="text-center">
+                                        <a asp-controller="OrderHistory" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-info btn-sm mx-1" data-bs-toggle="tooltip" title="Chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center py-4 my-3 rounded-pill" role="alert">
+                    <i class="fas fa-info-circle me-2"></i> Bạn chưa có đơn hàng nào.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

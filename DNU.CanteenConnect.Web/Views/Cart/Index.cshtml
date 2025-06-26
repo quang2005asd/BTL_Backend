@@ -1,0 +1,259 @@
+﻿@model DNU.CanteenConnect.Web.Models.Cart
+
+@{
+ViewData["Title"] = "Giỏ hàng của tôi";
+decimal cartTotal = 0;
+if (Model?.CartItems != null)
+{
+cartTotal = Model.CartItems.Sum(ci => ci.Quantity * ci.PriceAtAddition);
+}
+}
+
+<div class="container mt-5 pt-5 pb-5">
+    <h1 class="section-title">@ViewData["Title"]</h1>
+
+    @if (Model != null && Model.CartItems != null && Model.CartItems.Any())
+    {
+    <div class="card shadow-sm p-4 rounded-md mb-4">
+        <div class="card-body">
+            <h4 class="card-title mb-4">
+                <i class="fas fa-shopping-cart me-2" style="color: var(--primary-color);"></i> Các món trong giỏ
+            </h4>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Món ăn</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng</th>
+                        <th></th> @* Cột cho nút xóa *@
+                    </tr>
+                    </thead>
+                    <tbody id="cartItemsTableBody"> @* Thêm ID để dễ dàng thao tác JavaScript *@
+                    @foreach (var item in Model.CartItems)
+                    {
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.FoodItem?.ImageUrl))
+                            {
+                            <img src="@item.FoodItem.ImageUrl" alt="@item.FoodItem.Name" class="cart-item-thumbnail" />
+                            }
+                            else
+                            {
+                            <img src="https://placehold.co/60x60/cccccc/ffffff?text=No+Image" alt="No Image" class="cart-item-thumbnail" />
+                            }
+                        </td>
+                        <td>
+                            <strong>@item.FoodItem?.Name</strong>
+                            <br />
+                            <small class="text-muted">@item.FoodItem?.FoodCategory?.Name</small>
+                        </td>
+                        <td>@item.PriceAtAddition.ToString("N0") VNĐ</td>
+                        <td>
+                            <div class="input-group input-group-sm quantity-control">
+                                <button class="btn btn-outline-secondary btn-decrease" type="button" data-cart-item-id="@item.CartItemId">-</button>
+                                <input type="text" class="form-control text-center cart-item-quantity" value="@item.Quantity"
+                                       data-cart-item-id="@item.CartItemId" readonly style="max-width: 60px;"/>
+                                <button class="btn btn-outline-secondary btn-increase" type="button" data-cart-item-id="@item.CartItemId">+</button>
+                            </div>
+                        </td>
+                        <td>@((item.Quantity * item.PriceAtAddition).ToString("N0")) VNĐ</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm btn-remove-item" data-cart-item-id="@item.CartItemId">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex justify-content-end align-items-center mt-4">
+                <h3 class="me-3 mb-0">Tổng tiền: <span class="text-primary-dark" id="cartTotalPrice">@cartTotal.ToString("N0") VNĐ</span></h3>
+                <a asp-controller="Order" asp-action="Checkout" class="btn btn-success btn-lg"> @* ĐÃ SỬA: Trỏ đến OrderController/Checkout *@
+                    <i class="fas fa-money-check-alt me-2"></i> Tiến hành Thanh toán
+                </a>
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+    <div class="alert alert-info text-center mt-5" role="alert">
+        <h4 class="alert-heading">Giỏ hàng của bạn đang trống!</h4>
+        <p>Hãy khám phá thực đơn của chúng tôi và thêm những món ăn yêu thích vào giỏ hàng nhé.</p>
+        <hr>
+        <a asp-controller="Menu" asp-action="Index" class="btn btn-primary">Đi đến Thực đơn</a>
+    </div>
+    }
+</div>
+
+@section Scripts {
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script>
+    $(document).ready(function () {
+        // Update total price
+        function updateCartTotal() {
+            let total = 0;
+            $('#cartItemsTableBody tr').each(function() { // Use tbody ID for delegated event
+                const quantity = parseInt($(this).find('.cart-item-quantity').val());
+                // Get price from the 3rd column (index 2 if starting from 0)
+                const priceText = $(this).find('td:nth-child(3)').text();
+                const price = parseFloat(priceText.replace(/[^0-9,-]/g, '').replace('.', '').replace(',', '.'));
+
+                if (!isNaN(quantity) && !isNaN(price)) {
+                    total += quantity * price;
+                }
+            });
+            $('#cartTotalPrice').text(total.toLocaleString('vi-VN') + ' VNĐ');
+        }
+
+        // Update item count in Navbar (from API)
+        function updateNavbarCartCount() {
+            $.get('/Cart/GetCartItemCount', function(data) {
+                $('.cart-count').text(data.count);
+            }).fail(function() {
+                console.error("Failed to fetch cart count.");
+            });
+        }
+
+        // Handle quantity increase button click
+        $('#cartItemsTableBody').on('click', '.btn-increase', function() { // Use tbody ID for delegated event
+            const cartItemId = $(this).data('cart-item-id');
+            const quantityInput = $(this).siblings('.cart-item-quantity');
+            let newQuantity = parseInt(quantityInput.val()) + 1;
+            updateCartItemOnServer(cartItemId, newQuantity);
+        });
+
+        // Handle quantity decrease button click
+        $('#cartItemsTableBody').on('click', '.btn-decrease', function() { // Use tbody ID for delegated event
+            const cartItemId = $(this).data('cart-item-id');
+            const quantityInput = $(this).siblings('.cart-item-quantity');
+            let newQuantity = parseInt(quantityInput.val()) - 1;
+            updateCartItemOnServer(cartItemId, newQuantity);
+        });
+
+        // Handle remove item button click
+        $('#cartItemsTableBody').on('click', '.btn-remove-item', function() { // Use tbody ID for delegated event
+            const cartItemId = $(this).data('cart-item-id');
+            removeCartItemOnServer(cartItemId);
+        });
+
+        // Function to send AJAX request to update item quantity
+        function updateCartItemOnServer(cartItemId, newQuantity) {
+            // Get CSRF token
+            const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: '/Cart/UpdateCartItemQuantity',
+                type: 'POST',
+                data: {
+                    cartItemId: cartItemId,
+                    newQuantity: newQuantity,
+                    __RequestVerificationToken: antiForgeryToken
+                },
+                success: function(response) {
+                    if (response.success) {
+                        if (newQuantity <= 0) {
+                            // Remove row if quantity is 0 or less
+                            $(`button[data-cart-item-id='${cartItemId}']`).closest('tr').remove();
+                            if ($('#cartItemsTableBody tr').length === 0) { // Check number of rows again
+                                // Display empty cart message if no items left
+                                $('.card-body').html(`
+                                        <div class="alert alert-info text-center mt-5" role="alert">
+                                            <h4 class="alert-heading">Giỏ hàng của bạn đang trống!</h4>
+                                            <p>Hãy khám phá thực đơn của chúng tôi và thêm những món ăn yêu thích vào giỏ hàng nhé.</p>
+                                            <hr>
+                                            <a href="/Menu" class="btn btn-primary">Đi đến Thực đơn</a>
+                                        </div>
+                                    `);
+                                // Remove total price and action buttons if no items left in cart
+                                $('.d-flex.justify-content-end.align-items-center.mt-4').remove();
+                            }
+                        } else {
+                            // Update quantity and total price displayed on page
+                            const row = $(`input.cart-item-quantity[data-cart-item-id='${cartItemId}']`).closest('tr');
+                            row.find('.cart-item-quantity').val(newQuantity);
+                            const priceText = row.find('td:nth-child(3)').text();
+                            const price = parseFloat(priceText.replace(/[^0-9,-]/g, '').replace('.', '').replace(',', '.'));
+                            row.find('td:nth-child(5)').text((newQuantity * price).toLocaleString('vi-VN') + ' VNĐ');
+                        }
+                        updateCartTotal(); // Update total price after quantity change
+                        updateNavbarCartCount(); // Update count on navbar
+                        if (typeof showToast === 'function') {
+                            showToast(response.message, 'success');
+                        }
+                    } else {
+                        if (typeof showToast === 'function') {
+                            showToast(response.message, 'danger');
+                        }
+                        // If error, restore old quantity if needed (depends on your logic)
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error updating cart:", error);
+                    if (typeof showToast === 'function') {
+                        showToast('Error updating cart. Please try again.', 'danger');
+                    }
+                }
+            });
+        }
+
+        // Function to send AJAX request to remove item
+        function removeCartItemOnServer(cartItemId) {
+            // Get CSRF token
+            const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+
+            $.ajax({
+                url: '/Cart/RemoveFromCart',
+                type: 'POST',
+                data: {
+                    cartItemId: cartItemId,
+                    __RequestVerificationToken: antiForgeryToken
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Remove row from table
+                        $(`button[data-cart-item-id='${cartItemId}']`).closest('tr').remove();
+                        updateCartTotal(); // Update total price
+                        updateNavbarCartCount(); // Update count on navbar
+                        if ($('#cartItemsTableBody tr').length === 0) { // Check number of rows again
+                            // Display empty cart message if no items left
+                            $('.card-body').html(`
+                                    <div class="alert alert-info text-center mt-5" role="alert">
+                                        <h4 class="alert-heading">Giỏ hàng của bạn đang trống!</h4>
+                                        <p>Hãy khám phá thực đơn của chúng tôi và thêm những món ăn yêu thích vào giỏ hàng nhé.</p>
+                                        <hr>
+                                        <a href="/Menu" class="btn btn-primary">Đi đến Thực đơn</a>
+                                    </div>
+                                `);
+                            // Remove total price and action buttons if no items left in cart
+                            $('.d-flex.justify-content-end.align-items-center.mt-4').remove();
+                        }
+                        if (typeof showToast === 'function') {
+                            showToast(response.message, 'success');
+                        }
+                    } else {
+                        if (typeof showToast === 'function') {
+                            showToast(response.message, 'danger');
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error removing item:", error);
+                    if (typeof showToast === 'function') {
+                        showToast('Error removing item. Please try again.', 'danger');
+                    }
+                }
+            });
+        }
+
+        // Update cart count in Navbar when page loads for the first time
+        updateNavbarCartCount();
+    });
+</script>
+}

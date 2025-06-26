@@ -1,0 +1,205 @@
+﻿@model DNU.CanteenConnect.Web.Models.OrderHistoryDetailViewModel
+@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Chi tiết Đơn hàng";
+}
+
+<div class="container mt-5 pt-5 pb-5">
+    <h1 class="section-title">@ViewData["Title"] #@Model.Order.OrderId</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        <div class="card shadow-lg rounded-xl p-4 mb-4">
+            <div class="card-body">
+                <h4 class="card-title mb-4">
+                    <i class="fas fa-receipt me-2" style="color: var(--primary-color);"></i> Thông tin Đơn hàng
+                </h4>
+                <dl class="row mb-4">
+                    <dt class="col-sm-3">Mã Đơn hàng:</dt>
+                    <dd class="col-sm-9">#@Html.DisplayFor(model => model.Order.OrderId)</dd>
+
+                    <dt class="col-sm-3">Khách hàng:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Order.User!.UserName)</dd>
+
+                    <dt class="col-sm-3">Nhà ăn:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Order.Canteen!.Name)</dd>
+
+                    <dt class="col-sm-3">Ngày Đặt hàng:</dt>
+                    <dd class="col-sm-9">@Model.Order.OrderDate.ToString("dd/MM/yyyy HH:mm")</dd>
+
+                    <dt class="col-sm-3">Ghi chú:</dt>
+                    <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Order.Notes) ? "Không có" : Model.Order.Notes)</dd>
+
+                    <dt class="col-sm-3">Tổng tiền:</dt>
+                    <dd class="col-sm-9 fw-bold fs-5 text-primary-dark">@Model.Order.TotalAmount.ToString("N0") VNĐ</dd>
+
+                    <dt class="col-sm-3">Phương thức thanh toán:</dt>
+                    <dd class="col-sm-9">@(Model.Order.PaymentMethod == "BankTransfer" ? "Chuyển khoản ngân hàng" : "Thanh toán khi nhận hàng")</dd>
+
+                    <dt class="col-sm-3">Trạng thái:</dt>
+                    <dd class="col-sm-9">
+                        <span id="orderStatusBadge" class="badge @(Model.Order.Status == "Completed" ? "bg-success" : Model.Order.Status == "Paid" ? "bg-success" : Model.Order.Status == "AwaitingPaymentConfirmation" ? "bg-info" : Model.Order.Status == "PaymentSubmitted" ? "bg-warning text-dark" : Model.Order.Status == "Pending" ? "bg-secondary" : Model.Order.Status == "Preparing" ? "bg-primary" : Model.Order.Status == "Ready" ? "bg-success" : Model.Order.Status == "Cancelled" ? "bg-danger" : "bg-secondary")">
+                            @DNU.CanteenConnect.Web.Controllers.OrderHistoryController.GetStatusDisplayName(Model.Order.Status)
+                        </span>
+                    </dd>
+                </dl>
+
+                @if (Model.Order.PaymentMethod == "BankTransfer" && (Model.Order.Status == "AwaitingPaymentConfirmation" || Model.Order.Status == "PaymentSubmitted") && Model.Order.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                {
+                    <div id="bankTransferInfo" class="bank-transfer-details-section text-center mt-4">
+                        <p class="lead mb-3">Vui lòng chuyển khoản tổng số tiền <span class="fw-bold text-primary-dark">@Model.Order.TotalAmount.ToString("N0") VNĐ</span> để hoàn tất đơn hàng.</p>
+                        <div class="text-center mt-4 qr-code-container">
+                             <img id="qrCodeImage" src="@Url.Action("GetQrCode", "OrderHistory", new { orderId = Model.Order.OrderId })" alt="Mã QR Chuyển khoản" class="img-fluid rounded-lg border border-gray-300" onerror="this.onerror=null; this.src='https://placehold.co/250x250/cccccc/ffffff?text=Lỗi+QR!';"/>
+                        </div>
+                        @if (Model.Order.Status == "AwaitingPaymentConfirmation")
+                        {
+                            <button type="button" id="confirmBankTransferBtn" class="btn btn-success btn-lg mt-4 animate-button">
+                                <i class="fas fa-check-circle me-2"></i> Tôi đã chuyển khoản
+                            </button>
+                        }
+                        else if (Model.Order.Status == "PaymentSubmitted")
+                        {
+                            <div class="alert alert-success mt-4 mb-0" role="alert">
+                                <i class="fas fa-info-circle me-2"></i> Bạn đã xác nhận chuyển khoản. Đơn hàng đang chờ quản trị viên xác nhận.
+                            </div>
+                        }
+                    </div>
+                }
+
+                <h4 class="card-title mb-4 mt-5">
+                    <i class="fas fa-cubes me-2" style="color: var(--primary-color);"></i> Các món trong Đơn hàng
+                </h4>
+                @if (Model.ItemReviewStatuses != null && Model.ItemReviewStatuses.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>Món ăn</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Tổng</th>
+                                <th>Hành động</th> </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var statusItem in Model.ItemReviewStatuses) {
+                                var item = statusItem.OrderItem; // Lấy OrderItem để code ngắn gọn
+                                <tr>
+                                    <td>
+                                        <strong>@item.FoodItem?.Name</strong><br/>
+                                        <small class="text-muted">@item.FoodItem?.FoodCategory?.Name</small>
+                                    </td>
+                                    <td>@item.Quantity</td>
+                                    <td>@item.PriceAtOrder.ToString("N0") VNĐ</td>
+                                    <td>@((item.Quantity * item.PriceAtOrder).ToString("N0")) VNĐ</td>
+                                    <td>
+                                        @if (Model.Order.Status == "Completed")
+                                        {
+                                            @if (statusItem.HasBeenReviewed)
+                                            {
+                                                <span class="badge bg-light text-success border border-success"><i class="fas fa-check"></i> Đã đánh giá</span>
+                                            }
+                                            else
+                                            {
+                                                <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.ItemId" asp-route-returnUrl="@Url.Action("Details", "OrderHistory", new { id = Model.Order.OrderId })" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-pencil-alt"></i> Viết đánh giá
+                                                </a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">Hoàn thành đơn để đánh giá</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                            <tfoot class="table-group-divider">
+                                <tr class="table-light">
+                                    <td colspan="4" class="text-end fw-bold">Tổng cộng:</td>
+                                    <td class="fw-bold fs-5 text-primary-dark">@Model.Order.TotalAmount.ToString("N0") VNĐ</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted text-center">Đơn hàng này không có món ăn nào.</p>
+                }
+
+                <div class="text-center mt-4">
+                    <a asp-controller="OrderHistory" asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i> Quay lại Lịch sử Đơn hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            <h4 class="alert-heading">Không tìm thấy Đơn hàng!</h4>
+            <p>Đơn hàng bạn đang tìm kiếm có thể không tồn tại hoặc bạn không có quyền truy cập.</p>
+            <hr>
+            <a asp-controller="OrderHistory" asp-action="Index" class="btn btn-primary">Về trang Lịch sử Đơn hàng</a>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        // JavaScript cho việc xác nhận chuyển khoản của bạn được giữ nguyên
+        $(document).ready(function () {
+            $('#confirmBankTransferBtn').on('click', function () {
+                const orderId = @Model.Order.OrderId;
+                const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+                const $button = $(this);
+
+                $button.prop('disabled', true).html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang xác nhận...');
+
+                $.ajax({
+                    url: '@Url.Action("ConfirmPayment", "OrderHistory")',
+                    type: 'POST',
+                    data: {
+                        orderId: orderId,
+                        __RequestVerificationToken: antiForgeryToken
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            if (typeof showToast === 'function') { showToast(response.message, 'success'); }
+                            $('#orderStatusBadge').text(response.newStatusDisplayName).removeClass('bg-info').addClass('bg-warning text-dark');
+                            $button.replaceWith('<div class="alert alert-success mt-4 mb-0" role="alert"><i class="fas fa-info-circle me-2"></i> Bạn đã xác nhận chuyển khoản. Đơn hàng đang chờ quản trị viên xác nhận.</div>');
+                        } else {
+                            if (typeof showToast === 'function') { showToast(response.message, 'danger'); }
+                            $('#orderStatusBadge').text(response.newStatusDisplayName);
+                            $button.prop('disabled', false).html('<i class="fas fa-check-circle me-2"></i> Tôi đã chuyển khoản');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Lỗi khi xác nhận chuyển khoản:", error);
+                        if (typeof showToast === 'function') { showToast('Lỗi khi xác nhận chuyển khoản. Vui lòng thử lại.', 'danger'); }
+                        $button.prop('disabled', false).html('<i class="fas fa-check-circle me-2"></i> Tôi đã chuyển khoản');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,196 @@
+﻿@model IEnumerable<DNU.CanteenConnect.Web.Models.MenuItemViewModel>
+@{
+    ViewData["Title"] = "Thực đơn";
+}
+
+<div class="container mt-5 pt-5 pb-5">
+    <h1 class="section-title">@ViewData["Title"]</h1>
+    <div class="card shadow-sm mb-5 p-4 rounded-md">
+        <div class="card-body">
+            <h4 class="card-title mb-4">
+                <i class="fas fa-filter me-2" style="color: var(--primary-color);"></i> Lọc Thực đơn
+            </h4>
+
+            <div class="row g-3 align-items-end">
+                <div class="col-md-6 col-lg-4">
+                    <label for="menuDate" class="form-label fw-bold">
+                        <i class="fas fa-calendar-alt me-2 text-muted"></i>Chọn ngày
+                    </label>
+                    <input type="date" class="form-control" id="menuDate" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <label for="canteenSelect" class="form-label fw-bold">
+                        <i class="fas fa-store me-2 text-muted"></i>Chọn Nhà ăn
+                    </label>
+                    <select class="form-select" id="canteenSelect" asp-items="ViewBag.CanteenOptions">
+                        <option value="">Tất cả</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Các món ăn có sẵn</h2>
+    <div id="menuItems" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm food-card">
+                        <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/Menu/Index">
+                            <img src="@(item.FoodItem.ImageUrl ?? "https://placehold.co/400x250/cccccc/ffffff?text=No+Image")" class="card-img-top food-item-img" alt="@item.FoodItem.Name" />
+                        </a>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">
+                                <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/Menu/Index" class="text-decoration-none text-dark">
+                                    @item.FoodItem.Name
+                                </a>
+                            </h5>
+                            
+                            <div class="review-display d-flex align-items-center mb-2" 
+                                 data-rating="@item.AverageRating.ToString("F1")" 
+                                 data-count="@item.ReviewCount" 
+                                 style="height: 24px;">
+                            </div>
+
+                            <p class="card-text text-muted flex-grow-1">@item.FoodItem.Description</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">@item.FoodItem.Price.ToString("N0") VNĐ</p>
+                                <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
+                                        data-item-id="@item.FoodItem.ItemId"
+                                        data-item-name="@item.FoodItem.Name"
+                                        data-item-price="@item.FoodItem.Price">
+                                    <i class="fas fa-cart-plus me-2"></i> Thêm
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center text-muted mt-5">
+                <p>Chưa có món ăn nào có sẵn để hiển thị.</p>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        // HÀM MỚI: Dùng để vẽ các ngôi sao lẻ bằng CSS
+        function renderFractionalStars(rating, count) {
+            if (count > 0) {
+                // Tính toán phần trăm để tô màu cho lớp sao ở trên
+                const percentage = (rating / 5.0) * 100;
+                const formattedRating = parseFloat(rating).toFixed(1);
+                
+                // Tạo ra HTML với 2 lớp sao chồng lên nhau
+                const starsHtml = `
+                    <div class="rating-stars-fractional" title="${formattedRating} sao">
+                        <div class="stars-overlay" style="width: ${percentage}%;"></div>
+                    </div>
+                `;
+                return `${starsHtml}<span class="text-muted ms-2 small">${formattedRating} (${count} đánh giá)</span>`;
+            } else {
+                return '<span class="text-muted small">Chưa có đánh giá</span>';
+            }
+        }
+        
+        // HÀM CŨ ĐƯỢC CẬP NHẬT để sử dụng hàm vẽ sao mới
+        function renderMenuItems(items) {
+            const menuItemsContainer = $('#menuItems');
+            menuItemsContainer.empty();
+
+            if (items && items.length > 0) {
+                items.forEach(item => {
+                    const imageUrl = item.imageUrl || "https://placehold.co/400x250/cccccc/ffffff?text=No+Image";
+                    const ratingHtml = renderFractionalStars(item.averageRating, item.reviewCount); // Gọi hàm mới
+                    const itemHtml = `
+                        <div class="col">
+                            <div class="card h-100 shadow-sm food-card">
+                                 <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index">
+                                    <img src="${imageUrl}" class="card-img-top food-item-img" alt="${item.name}" />
+                                </a>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">
+                                        <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index" class="text-decoration-none text-dark">${item.name}</a>
+                                    </h5>
+                                    
+                                    <div class="d-flex align-items-center mb-2" style="height: 24px;">
+                                        ${ratingHtml}
+                                    </div>
+
+                                    <p class="card-text text-muted flex-grow-1">${item.description || ''}</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                                        <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">${item.price.toLocaleString('vi-VN')} VNĐ</p>
+                                        <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
+                                                data-item-id="${item.itemId}" data-item-name="${item.name}" data-item-price="${item.price}">
+                                            <i class="fas fa-cart-plus me-2"></i> Thêm
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    menuItemsContainer.append(itemHtml);
+                });
+            } else {
+                menuItemsContainer.append('<div class="col-12 text-center text-muted mt-5"><p>Chưa có món ăn nào có sẵn để hiển thị theo bộ lọc này.</p></div>');
+            }
+        }
+
+        $(document).ready(function () {
+            // HÀM MỚI: Chạy khi trang tải xong để vẽ sao cho các mục đã có sẵn từ server
+            function renderInitialStars() {
+                $('.review-display').each(function() {
+                    // Thay thế dấu phẩy bằng dấu chấm để JS hiểu đúng số thập phân
+                    const rating = $(this).data('rating').toString().replace(',', '.'); 
+                    const count = parseInt($(this).data('count'));
+                    const starsHtml = renderFractionalStars(parseFloat(rating), count);
+                    $(this).html(starsHtml);
+                });
+            }
+
+            // Hàm load AJAX giữ nguyên như cũ
+            function loadFilteredMenuItems(date, canteenId) {
+                $.ajax({
+                    url: '@Url.Action("DailyMenuItems", "Menu")',
+                    type: 'GET', data: { menuDate: date, canteenId: canteenId },
+                    success: function (data) { renderMenuItems(data); },
+                    error: function (xhr, status, error) { console.error("Lỗi khi tải món ăn:", error); }
+                });
+            }
+
+            // Chạy hàm vẽ sao ban đầu
+            renderInitialStars();
+
+            // Các event listener giữ nguyên như cũ
+            $('#menuDate, #canteenSelect').on('change', function () {
+                loadFilteredMenuItems($('#menuDate').val(), $('#canteenSelect').val());
+            });
+
+            $('#menuItems').on('click', '.add-to-cart-btn', function () {
+                const foodItemId = $(this).data('item-id');
+                const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+                $.ajax({
+                    url: '/Cart/AddToCart', type: 'POST',
+                    data: { itemId: foodItemId, quantity: 1, __RequestVerificationToken: antiForgeryToken },
+                    success: function (response) {
+                        if (response.success) {
+                            if (typeof showToast === 'function') { showToast(response.message, 'success'); }
+                            $(window).trigger('cartUpdated'); 
+                        } else {
+                            if (typeof showToast === 'function') { showToast(response.message, 'danger'); }
+                        }
+                    },
+                    error: function (xhr, status, error) { console.error("Lỗi khi thêm vào giỏ hàng:", error); }
+                });
+            });
+        });
+    </script>
+}

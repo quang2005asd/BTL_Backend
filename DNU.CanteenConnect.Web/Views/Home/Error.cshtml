@@ -1,0 +1,41 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model DNU.CanteenConnect.Web.Pages.ErrorModel
+@{
+    ViewData["Title"] = "Lỗi!";
+}
+
+<div class="container mt-5 pt-5 pb-5 text-center">
+    <div class="card shadow-lg border-danger rounded-md mx-auto" style="max-width: 700px;">
+        <div class="card-header text-white py-3" style="background-color: #dc3545;"> @* Dùng màu đỏ trực tiếp cho header lỗi *@
+            <h1 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>@ViewData["Title"]</h1>
+        </div>
+        <div class="card-body p-4">
+            <h2 class="text-danger mb-4">Đã xảy ra lỗi trong quá trình xử lý yêu cầu của bạn.</h2>
+
+            @if (Model.ShowRequestId)
+            {
+                <div class="alert alert-info text-start" role="alert">
+                    <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Mã yêu cầu (Request ID):</h5>
+                    <p class="mb-0"><code>@Model.RequestId</code></p>
+                </div>
+            }
+
+            <div class="mt-4 text-muted text-start">
+                <h3><i class="fas fa-code me-2"></i>Chế độ Phát triển (Development Mode)</h3>
+                <p>
+                    Chuyển sang môi trường **Development** sẽ hiển thị thông tin chi tiết về lỗi đã xảy ra.
+                </p>
+                <p>
+                    **Môi trường Development không nên được bật cho các ứng dụng đã triển khai.**
+                    Nó có thể dẫn đến việc hiển thị thông tin nhạy cảm từ các ngoại lệ cho người dùng cuối.
+                    Để gỡ lỗi cục bộ, hãy bật môi trường **Development** bằng cách đặt biến môi trường **ASPNETCORE_ENVIRONMENT** thành **Development**
+                    và khởi động lại ứng dụng.
+                </p>
+            </div>
+            <div class="mt-4">
+                <a asp-page="/Index" class="btn btn-primary"><i class="fas fa-home me-2"></i>Quay về Trang chủ</a>
+            </div>
+        </div>
+    </div>
+</div>

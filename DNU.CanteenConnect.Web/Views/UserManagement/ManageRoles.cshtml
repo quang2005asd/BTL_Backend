@@ -1,0 +1,69 @@
+﻿@model DNU.CanteenConnect.Web.Models.ManageUserRolesViewModel
+
+@{
+    ViewData["Title"] = "Quản lý Vai trò";
+
+    // SỬA LẠI: Dùng class RoleDisplayViewModel thay vì tuple
+    var roleDisplayInfo = new Dictionary<string, RoleDisplayViewModel>
+    {
+        { "Admin", new RoleDisplayViewModel { VietnameseName = "Quản trị viên", Icon = "fas fa-user-shield", Description = "Có toàn quyền cao nhất trong hệ thống." } },
+        { "CanteenStaff", new RoleDisplayViewModel { VietnameseName = "Nhân viên Nhà ăn", Icon = "fas fa-user-tag", Description = "Có quyền quản lý các mục liên quan đến nhà ăn." } },
+        { "Customer", new RoleDisplayViewModel { VietnameseName = "Khách hàng", Icon = "fas fa-user", Description = "Vai trò mặc định cho người dùng thông thường." } }
+    };
+    
+    // Tạo một đối tượng mặc định cho các vai trò không có trong dictionary
+    var defaultDisplayInfo = new RoleDisplayViewModel { Icon = "fas fa-question-circle", Description = "Vai trò không xác định." };
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0"><i class="fas fa-users-cog me-2"></i> @ViewData["Title"]</h2>
+                </div>
+                <div class="card-body p-4">
+                    <h4 class="card-title">Người dùng: <span class="text-primary-dark fw-bold">@Model.UserName</span></h4>
+                    <p class="text-muted">Chọn hoặc bỏ chọn các vai trò bạn muốn gán cho người dùng này.</p>
+                    <hr/>
+
+                    <form asp-action="ManageRoles" method="post">
+                        <input type="hidden" asp-for="UserId" />
+                        @Html.AntiForgeryToken()
+
+                        <div class="list-group">
+                            @for (int i = 0; i < Model.Roles.Count; i++)
+                            {
+                                var roleName = Model.Roles[i].RoleName;
+                                // SỬA LẠI: Lấy thông tin từ dictionary, nếu không có thì dùng giá trị mặc định
+                                var displayInfo = roleDisplayInfo.GetValueOrDefault(roleName, defaultDisplayInfo);
+                                var vietnameseName = string.IsNullOrEmpty(displayInfo.VietnameseName) ? roleName : displayInfo.VietnameseName;
+
+                                <label class="list-group-item d-flex align-items-center">
+                                    <input type="hidden" asp-for="Roles[i].RoleName" />
+                                    <input type="checkbox" asp-for="Roles[i].IsSelected" class="form-check-input me-3" style="transform: scale(1.5);" />
+                                    
+                                    <div class="flex-grow-1">
+                                        <h6 class="mb-0">
+                                            @* SỬA LẠI: Dùng các thuộc tính của class RoleDisplayViewModel *@
+                                            <i class="@displayInfo.Icon me-2 text-muted"></i>
+                                            <strong>@vietnameseName</strong>
+                                        </h6>
+                                        <small class="text-muted">@displayInfo.Description</small>
+                                    </div>
+                                </label>
+                            }
+                        </div>
+
+                        <div asp-validation-summary="All" class="text-danger mt-3"></div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i> Quay lại Danh sách</a>
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-save me-2"></i> Lưu Thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

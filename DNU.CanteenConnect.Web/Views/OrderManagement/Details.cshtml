@@ -1,0 +1,144 @@
+﻿@model DNU.CanteenConnect.Web.Models.Order
+
+@{
+    ViewData["Title"] = "Chi tiết Đơn hàng";
+}
+
+<div class="container mt-5 pt-5 pb-5">
+    <h1 class="section-title">@ViewData["Title"] #@Model.OrderId</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        <div class="card shadow-sm p-4 rounded-md mb-4">
+            <div class="card-body">
+                <h4 class="card-title mb-4">
+                    <i class="fas fa-receipt me-2" style="color: var(--primary-color);"></i> Thông tin Đơn hàng
+                </h4>
+                <dl class="row mb-4">
+                    <dt class="col-sm-3">Mã Đơn hàng:</dt>
+                    <dd class="col-sm-9">#@Html.DisplayFor(model => model.OrderId)</dd>
+
+                    <dt class="col-sm-3">Khách hàng:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.User!.UserName)</dd>
+
+                    <dt class="col-sm-3">Nhà ăn:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.Canteen!.Name)</dd>
+
+                    <dt class="col-sm-3">Ngày Đặt hàng:</dt>
+                    <dd class="col-sm-9">@Html.DisplayFor(model => model.OrderDate)</dd>
+
+                    <dt class="col-sm-3">Ghi chú:</dt>
+                    <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Notes) ? "Không có" : Model.Notes)</dd>
+
+                    <dt class="col-sm-3">Tổng tiền:</dt>
+                    <dd class="col-sm-9 fw-bold fs-5 text-primary-dark">@Model.TotalAmount.ToString("N0") VNĐ</dd>
+                    
+                    <dt class="col-sm-3">Phương thức thanh toán:</dt>
+                    <dd class="col-sm-9">@(Model.PaymentMethod == "BankTransfer" ? "Chuyển khoản ngân hàng" : "Thanh toán khi nhận hàng")</dd>
+
+                    <dt class="col-sm-3">Trạng thái:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge 
+                            @(Model.Status == "Completed" ? "bg-success" : 
+                              Model.Status == "Paid" ? "bg-success" : 
+                              Model.Status == "AwaitingPaymentConfirmation" ? "bg-info" : 
+                              Model.Status == "PaymentSubmitted" ? "bg-warning text-dark" : 
+                              Model.Status == "Pending" ? "bg-secondary" : 
+                              Model.Status == "Preparing" ? "bg-primary" : 
+                              Model.Status == "Ready" ? "bg-success" : 
+                              Model.Status == "Cancelled" ? "bg-danger" : 
+                              "bg-secondary")">
+                            @DNU.CanteenConnect.Web.Controllers.OrderManagementController.GetStatusDisplayName(Model.Status) @* ĐÃ SỬA: Sử dụng hàm helper để dịch trạng thái *@
+                        </span>
+                    </dd>
+                </dl>
+
+                <h4 class="card-title mb-4 mt-5">
+                    <i class="fas fa-cubes me-2" style="color: var(--primary-color);"></i> Các món trong Đơn hàng
+                </h4>
+                @if (Model.OrderItems != null && Model.OrderItems.Any())
+                {
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Món ăn</th>
+                                    <th>Số lượng</th>
+                                    <th>Giá tại thời điểm đặt</th>
+                                    <th>Tổng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>@item.FoodItem?.Name</strong>
+                                            <br />
+                                            <small class="text-muted">@item.FoodItem?.FoodCategory?.Name</small>
+                                        </td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.PriceAtOrder.ToString("N0") VNĐ</td>
+                                        <td>@((item.Quantity * item.PriceAtOrder).ToString("N0")) VNĐ</td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr class="table-info">
+                                    <td colspan="3" class="text-end fw-bold">Tổng cộng:</td>
+                                    <td class="fw-bold fs-5 text-primary-dark">@Model.OrderItems.Sum(oi => oi.Quantity * oi.PriceAtOrder).ToString("N0") VNĐ</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p class="text-muted text-center">Đơn hàng này không có món ăn nào.</p>
+                }
+
+                <h4 class="card-title mb-4 mt-5">
+                    <i class="fas fa-sync-alt me-2" style="color: var(--primary-color);"></i> Cập nhật Trạng thái
+                </h4>
+                <form asp-controller="OrderManagement" asp-action="UpdateStatus" method="post">
+                    <input type="hidden" name="orderId" value="@Model.OrderId" />
+                    <div class="input-group mb-3">
+                        <select name="newStatus" class="form-select" asp-items="ViewBag.Statuses">
+                        </select>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a asp-controller="OrderManagement" asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i> Quay lại Danh sách Đơn hàng
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            <h4 class="alert-heading">Không tìm thấy Đơn hàng!</h4>
+            <p>Đơn hàng bạn đang tìm kiếm có thể không tồn tại hoặc bạn không có quyền truy cập.</p>
+            <hr>
+            <a asp-controller="OrderManagement" asp-action="Index" class="btn btn-primary">Về trang Quản lý Đơn hàng</a>
+        </div>
+    }
+</div>

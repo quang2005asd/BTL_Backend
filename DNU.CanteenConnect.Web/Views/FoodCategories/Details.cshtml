@@ -1,0 +1,44 @@
+﻿@model DNU.CanteenConnect.Web.Models.FoodCategory
+
+@{
+    ViewData["Title"] = "Chi tiết Danh mục";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;"> @* Căn giữa nội dung *@
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 600px;"> @* Tạo khung card *@
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1> @* Tiêu đề trang *@
+            
+            <h4>Thông tin Danh mục</h4>
+            <hr />
+            @if (Model != null)
+            {
+                <dl class="row">
+                    <dt class="col-sm-4"> @* Tăng kích thước cột cho nhãn *@
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
+                    <dd class="col-sm-8"> @* Tăng kích thước cột cho giá trị *@
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Description)
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+                </dl>
+            }
+            else
+            {
+                <p class="text-danger text-center">Không tìm thấy thông tin danh mục món ăn.</p> @* Căn giữa thông báo lỗi *@
+            }
+        </div>
+        <div class="card-footer text-center mt-3"> @* Đặt nút hành động vào footer của card và căn giữa *@
+            @if (Model != null)
+            {
+                <a asp-controller="FoodCategories" asp-action="Edit" asp-route-id="@Model.CategoryId" class="btn btn-warning me-2">Sửa</a> @* Thêm margin cho nút *@
+            }
+            <a asp-controller="FoodCategories" asp-action="Index" class="btn btn-secondary">Quay lại Danh sách</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model DNU.CanteenConnect.Web.Models.FoodItem
+
+@{
+    ViewData["Title"] = "Xóa Món ăn";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;"> @* Căn giữa nội dung *@
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 700px;"> @* Tạo khung card *@
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1> @* Tiêu đề trang *@
+
+            <h3>Bạn có chắc chắn muốn xóa món ăn này không?</h3>
+            <hr />
+            @if (Model != null)
+            {
+            <div class="row mb-4">
+                <div class="col-md-5 d-flex align-items-center justify-content-center">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="@Model.Name" class="img-fluid rounded shadow-sm" style="max-height: 250px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <img src="https://placehold.co/250x250/cccccc/ffffff?text=No+Image" alt="No Image" class="img-fluid rounded shadow-sm" style="max-height: 250px; object-fit: cover;" />
+                    }
+                </div>
+                <div class="col-md-7">
+                    <h4 class="card-subtitle mb-2 text-muted mt-3 mt-md-0">Thông tin Món ăn</h4>
+                    <hr />
+                    <dl class="row">
+                        <dt class="col-sm-4"> @* Tăng kích thước cột cho nhãn *@
+                            @Html.DisplayNameFor(model => model.Name)
+                        </dt>
+                        <dd class="col-sm-8"> @* Tăng kích thước cột cho giá trị *@
+                            @Html.DisplayFor(model => model.Name)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Description)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Price)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Price) VNĐ
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.ImageUrl)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.ImageUrl)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.FoodCategory)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.FoodCategory!.Name)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.Canteen)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.Canteen!.Name)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.IsAvailable)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.IsAvailable)
+                        </dd>
+                        <dt class="col-sm-4">
+                            @Html.DisplayNameFor(model => model.IsSpecialOfTheDay)
+                        </dt>
+                        <dd class="col-sm-8">
+                            @Html.DisplayFor(model => model.IsSpecialOfTheDay)
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <form asp-action="Delete" class="text-center mt-3"> @* asp-action thay cho method="post" *
+                    <input type="hidden" asp-for="ItemId" /> @* Hidden field để gửi ID món ăn cần xóa *@
+                <input type="submit" value="Xóa" class="btn btn-danger me-2" /> @* Nút Xóa *@
+                <a asp-action="Index" class="btn btn-secondary">Hủy</a> @* asp-action thay cho asp-page *@
+                </form>
+            }
+            else
+            {
+                <p class="text-danger text-center">Không tìm thấy thông tin món ăn để xóa.</p> @* Căn giữa thông báo lỗi *@
+                }
+        </div>
+    </div>
+</div>

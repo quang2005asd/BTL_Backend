@@ -1,0 +1,77 @@
+﻿@model IEnumerable<DNU.CanteenConnect.Web.Models.DailyMenu>
+
+@{
+    ViewData["Title"] = "Quản lý Thực đơn hàng ngày";
+}
+
+<div class="container py-5">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h1 class="text-center section-title mb-5">Quản lý Thực đơn hàng ngày</h1>
+        </div>
+    </div>
+
+    <div class="card shadow-lg p-4 mb-5">
+        <div class="card-header bg-transparent border-0 pb-0">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+                <a asp-controller="DailyMenus" asp-action="Create" class="btn btn-primary btn-lg custom-btn mb-2 mb-md-0">
+                    <i class="fas fa-plus-circle me-2"></i> Tạo Thực đơn Mới
+                </a>
+                @* Bạn có thể thêm phần tìm kiếm/lọc tại đây nếu cần *@
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            @if (Model != null && Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover mt-3">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>@Html.DisplayNameFor(model => model.MenuDate)</th>
+                                <th>@Html.DisplayNameFor(model => model.Canteen)</th>
+                                <th>@Html.DisplayNameFor(model => model.Notes)</th>
+                                <th class="text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.MenuDate)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Canteen!.Name)</td> @* Hiển thị tên nhà ăn *@
+                                    <td>@(item.Notes != null && item.Notes.Length > 70 ? item.Notes.Substring(0, 70) + "..." : item.Notes)</td>
+                                    <td class="text-center">
+                                        <a asp-controller="DailyMenus" asp-action="Edit" asp-route-id="@item.MenuId" class="btn btn-warning btn-sm mx-1" data-bs-toggle="tooltip" title="Chỉnh sửa">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-controller="DailyMenus" asp-action="Details" asp-route-id="@item.MenuId" class="btn btn-info btn-sm mx-1" data-bs-toggle="tooltip" title="Chi tiết">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                        <a asp-controller="DailyMenus" asp-action="Delete" asp-route-id="@item.MenuId" class="btn btn-danger btn-sm mx-1" data-bs-toggle="tooltip" title="Xóa">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-info text-center py-4 my-3 rounded-pill" role="alert">
+                    <i class="fas fa-info-circle me-2"></i> Chưa có thực đơn hàng ngày nào được thêm.
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

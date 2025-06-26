@@ -1,0 +1,47 @@
+﻿@model DNU.CanteenConnect.Web.Models.Canteen
+
+@{
+    ViewData["Title"] = "Sửa Nhà ăn";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;"> @* Căn giữa nội dung *@
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px;"> @* Tạo khung card *@
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">@ViewData["Title"]</h1> @* Tiêu đề trang *@
+
+            <h4>Thông tin Nhà ăn</h4>
+            <hr />
+            <div class="row">
+                <div class="col-md-12"> @* Sử dụng full width của card *@
+                    <form asp-action="Edit"> @* Sử dụng asp-action thay vì method="post" *@
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="CanteenId" /> @* Hidden field để lưu ID của nhà ăn *@
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Location" class="control-label"></label>
+                            <input asp-for="Location" class="form-control" />
+                            <span asp-validation-for="Location" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="OpeningHours" class="control-label"></label>
+                            <input asp-for="OpeningHours" class="form-control" />
+                            <span asp-validation-for="OpeningHours" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3 text-center"> @* Căn giữa các nút *@
+                            <input type="submit" value="Lưu" class="btn btn-primary me-2" /> @* Nút Lưu *@
+                            <a asp-action="Index" class="btn btn-secondary">Quay lại Danh sách</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
