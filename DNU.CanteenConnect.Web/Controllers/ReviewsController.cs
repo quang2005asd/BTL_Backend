@@ -1,42 +1,47 @@
 ﻿using DNU.CanteenConnect.Web.Data;
 using DNU.CanteenConnect.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
-// Thêm using này nếu bạn dùng Microsoft Identity để quản lý người dùng
-// using Microsoft.AspNetCore.Identity; 
-// using System.Security.Claims;
 
 namespace DNU.CanteenConnect.Web.Controllers
 {
+    [Authorize] // Yêu cầu người dùng phải đăng nhập để sử dụng các chức năng này
     public class ReviewsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        // private readonly UserManager<User> _userManager; // Bỏ comment nếu dùng Identity
+        private readonly UserManager<User> _userManager; // Dịch vụ để quản lý người dùng
 
-        public ReviewsController(ApplicationDbContext context /*, UserManager<User> userManager */)
+        // Cập nhật constructor để nhận UserManager
+        public ReviewsController(ApplicationDbContext context, UserManager<User> userManager)
         {
             _context = context;
-            // _userManager = userManager; // Bỏ comment nếu dùng Identity
+            _userManager = userManager;
         }
 
         // POST: /Reviews/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // Tham số 'returnUrl' giúp chúng ta biết quay trở lại trang nào sau khi gửi đánh giá
-        public async Task<IActionResult> Create(Review review, string returnUrl)
+        public async Task<IActionResult> Create([Bind("ItemId,Rating,Comment")] Review review, string returnUrl)
         {
-            // Giả sử người dùng đã đăng nhập.
-            // Đoạn code lấy UserId sẽ thay đổi tùy theo cách bạn quản lý User (Identity hay tự làm)
-            // CÁCH 1: Dùng M. Identity (khuyên dùng)
-            // review.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            // Lấy ID của người dùng đang đăng nhập từ thông tin phiên
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                // Trường hợp này hiếm khi xảy ra do đã có [Authorize]
+                // nhưng vẫn là một bước kiểm tra an toàn
+                return Challenge(); // Yêu cầu đăng nhập lại
+            }
 
-            // CÁCH 2: Tạm thời hard-code để test
-            review.UserId = "98fd1302-d9b9-41b4-8f68-404233352def"; // << Sẽ sửa lại sau khi có chức năng đăng nhập
-
+            // Gán các thông tin cần thiết một cách tự động
+            review.UserId = userId; // <-- GÁN ID NGƯỜI DÙNG HIỆN TẠI
             review.ReviewDate = DateTime.Now;
 
-            // Xóa lỗi của các trường không được bind từ form để ModelState hợp lệ
+            // Xóa các lỗi validation không cần thiết vì chúng không được gửi từ form
             ModelState.Remove("User");
             ModelState.Remove("FoodItem");
             ModelState.Remove("UserId");
@@ -45,24 +50,24 @@ namespace DNU.CanteenConnect.Web.Controllers
             {
                 _context.Add(review);
                 await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Gửi đánh giá thành công!";
 
-                // Chuyển hướng người dùng trở lại trang chi tiết món ăn mà họ vừa đánh giá
+                // Chuyển hướng người dùng trở lại trang mà họ vừa đánh giá
                 if (Url.IsLocalUrl(returnUrl))
                 {
                     return Redirect(returnUrl);
                 }
                 else
                 {
-                    // Nếu returnUrl không hợp lệ, chuyển về trang chủ
+                    // Nếu có lỗi, chuyển về trang chủ như một giải pháp an toàn
                     return RedirectToAction("Index", "Home");
                 }
             }
             
-            // Nếu có lỗi, chúng ta cần xử lý (sẽ làm ở bước sau)
-            // Tạm thời chỉ chuyển hướng về trang cũ
-             if (Url.IsLocalUrl(returnUrl))
+            // Nếu ModelState không hợp lệ (ví dụ: người dùng không cho điểm)
+            TempData["ErrorMessage"] = "Gửi đánh giá không thành công. Vui lòng kiểm tra lại.";
+            if (Url.IsLocalUrl(returnUrl))
             {
-                TempData["ErrorMessage"] = "Gửi đánh giá không thành công. Vui lòng thử lại.";
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");

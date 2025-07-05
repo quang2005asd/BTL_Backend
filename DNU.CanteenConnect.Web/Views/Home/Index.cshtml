@@ -3,25 +3,34 @@
     ViewData["Title"] = "Trang chủ";
 }
 
-<div class="container-fluid p-0"> @* Full width container for hero section *@
+<div class="container-fluid p-0">
     <div id="heroCarousel" class="carousel slide hero-section" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://haycafe.vn/wp-content/uploads/2022/03/anh-do-an.jpg" class="d-block w-100 carousel-img" alt="Món ăn ngon 1" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Lỗi+ảnh';">
+                <img src="https://haycafe.vn/wp-content/uploads/2022/03/anh-do-an.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Món ăn ngon 1"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Lỗi+ảnh';" />
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Hương Vị Hoàn Hảo</h5>
                     <p>Khám phá thế giới ẩm thực đa dạng tại DNU Canteen Connect.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="https://chuphinhmenu.com/wp-content/uploads/2018/03/chup-hinh-mon-an-menu-nha-trang-khanh-hoa-0008.jpg" class="d-block w-100 carousel-img" alt="Món ăn ngon 2" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Lỗi+ảnh';">
+                <img src="https://chuphinhmenu.com/wp-content/uploads/2018/03/chup-hinh-mon-an-menu-nha-trang-khanh-hoa-0008.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Món ăn ngon 2"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Lỗi+ảnh';" />
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Tiện Lợi Tối Đa</h5>
                     <p>Đặt món trực tuyến dễ dàng, giao hàng nhanh chóng.</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img src="https://cdn.tgdd.vn/2020/12/CookProduct/Thuc-an-nhanh-la-gi-tac-hai-cua-thuc-an-nhanh-va-cac-loai-tot-cho-suc-khoe-1-1200x676.jpg" class="d-block w-100 carousel-img" alt="Món ăn ngon 3" onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Lỗi+ảnh';">
+                <img src="https://cdn.tgdd.vn/2020/12/CookProduct/Thuc-an-nhanh-la-gi-tac-hai-cua-thuc-an-nhanh-va-cac-loai-tot-cho-suc-khoe-1-1200x676.jpg"
+                     class="d-block w-100 carousel-img"
+                     alt="Món ăn ngon 3"
+                     onerror="this.onerror=null;this.src='https://placehold.co/1200x550/cccccc/ffffff?text=Lỗi+ảnh';" />
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Chất Lượng Hàng Đầu</h5>
                     <p>Nguyên liệu tươi ngon, an toàn vệ sinh thực phẩm.</p>
@@ -52,21 +61,17 @@
 
     <h2 class="section-title mt-5">Món đặc biệt trong ngày</h2>
     <div id="featuredItems" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @if (Model != null && Model.FeaturedFoodItems != null && Model.FeaturedFoodItems.Any())
+        @if (Model?.FeaturedFoodItems?.Any() == true)
         {
-            @foreach (var item in Model.FeaturedFoodItems)
+            foreach (var item in Model.FeaturedFoodItems)
             {
                 <div class="col">
                     <div class="card h-100 shadow-sm food-card">
                         <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/">
-                            @if (!string.IsNullOrEmpty(item.FoodItem.ImageUrl))
-                            {
-                                <img src="@item.FoodItem.ImageUrl" class="card-img-top food-item-img" alt="@item.FoodItem.Name" onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=No+Image';" />
-                            }
-                            else
-                            {
-                                <img src="https://placehold.co/400x250/cccccc/ffffff?text=No+Image" class="card-img-top food-item-img" alt="Không có ảnh" />
-                            }
+                            <img src="@(item.FoodItem.ImageUrl ?? "https://placehold.co/400x250/cccccc/ffffff?text=No+Image")"
+                                 class="card-img-top food-item-img"
+                                 alt="@item.FoodItem.Name"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/400x250/cccccc/ffffff?text=No+Image';" />
                         </a>
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">
@@ -74,16 +79,18 @@
                                     @item.FoodItem.Name
                                 </a>
                             </h5>
-                            
-                            <div class="review-display d-flex align-items-center mb-2" 
-                                 data-rating="@item.AverageRating.ToString("F1")" 
-                                 data-count="@item.ReviewCount" 
+                            <div class="review-display d-flex align-items-center mb-2"
+                                 data-rating="@item.AverageRating.ToString("F1")"
+                                 data-count="@item.ReviewCount"
                                  style="height: 24px;">
-                                </div>
-
-                            <p class="card-text text-muted flex-grow-1">@(item.FoodItem.Description != null && item.FoodItem.Description.Length > 100 ? item.FoodItem.Description.Substring(0, 100) + "..." : item.FoodItem.Description)</p>
+                            </div>
+                            <p class="card-text text-muted flex-grow-1">
+                                @(item.FoodItem.Description?.Length > 100 ? item.FoodItem.Description.Substring(0, 100) + "..." : item.FoodItem.Description)
+                            </p>
                             <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">@item.FoodItem.Price.ToString("N0") VNĐ</p>
+                                <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">
+                                    @item.FoodItem.Price.ToString("N0") VNĐ
+                                </p>
                                 <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
                                         data-item-id="@item.FoodItem.ItemId"
                                         data-item-name="@item.FoodItem.Name"
@@ -108,33 +115,34 @@
     <h2 class="section-title mt-5">Về chúng tôi</h2>
     <div class="row about-section align-items-center mb-5">
         <div class="col-md-6">
-            <div class="about-image-wrapper">
-                <img src="~/images/cô_gái-removebg-preview.png" alt="Về chúng tôi" onerror="this.onerror=null;this.src='https://placehold.co/450x450/cccccc/ffffff?text=Về+chúng+tôi';">
-            </div>
+            <img src="~/images/cô_gái-removebg-preview.png" alt="Về chúng tôi" class="img-fluid"
+                 onerror="this.onerror=null;this.src='https://placehold.co/450x450/cccccc/ffffff?text=Về+chúng+tôi';" />
         </div>
         <div class="col-md-6 mt-4 mt-md-0">
             <h3>Mang bữa ăn ngon đến gần bạn hơn!</h3>
             <p class="text-muted">DNU Canteen Connect được xây dựng với sứ mệnh kết nối sinh viên và cán bộ trường Đại học với các nhà ăn chất lượng, tiện lợi ngay trong khuôn viên.</p>
-            <p class="text-muted">Chúng tôi cam kết mang đến những bữa ăn tươi ngon, đa dạng, hợp vệ sinh và dịch vụ đặt món trực tuyến nhanh chóng, giúp bạn tiết kiệm thời gian và tận hưởng trọn vẹn từng khoảnh khắc.</p>
+            <p class="text-muted">Chúng tôi cam kết mang đến những bữa ăn tươi ngon, đa dạng, hợp vệ sinh và dịch vụ đặt món trực tuyến nhanh chóng.</p>
             <a asp-controller="Home" asp-action="About" class="btn btn-primary mt-3">Tìm hiểu thêm</a>
         </div>
     </div>
 </div>
 
+<!-- Hidden form để lấy AntiForgeryToken -->
+<form id="antiForgeryForm" method="post" style="display:none;">
+    @Html.AntiForgeryToken()
+</form>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     <script>
-        // HÀM MỚI: Dùng để vẽ các ngôi sao lẻ bằng CSS
         function renderFractionalStars(rating, count) {
             if (count > 0) {
                 const percentage = (rating / 5.0) * 100;
                 const formattedRating = parseFloat(rating).toFixed(1);
-                
                 const starsHtml = `
                     <div class="rating-stars-fractional" title="${formattedRating} sao">
                         <div class="stars-overlay" style="width: ${percentage}%;"></div>
-                    </div>
-                `;
+                    </div>`;
                 return `${starsHtml}<span class="text-muted ms-2 small">${formattedRating} (${count} đánh giá)</span>`;
             } else {
                 return '<span class="text-muted small">Chưa có đánh giá</span>';
@@ -142,39 +150,30 @@
         }
 
         $(document).ready(function () {
-            // HÀM MỚI: Chạy khi trang tải xong để vẽ sao cho các mục đã có sẵn từ server
-            function renderInitialStars() {
-                $('.review-display').each(function() {
-                    const rating = $(this).data('rating').toString().replace(',', '.'); 
-                    const count = parseInt($(this).data('count'));
-                    const starsHtml = renderFractionalStars(parseFloat(rating), count);
-                    $(this).html(starsHtml);
-                });
-            }
+            $('.review-display').each(function () {
+                const rating = $(this).data('rating').toString().replace(',', '.');
+                const count = parseInt($(this).data('count'));
+                $(this).html(renderFractionalStars(parseFloat(rating), count));
+            });
 
-            // Chạy hàm vẽ sao ban đầu
-            renderInitialStars();
-
-            // Cập nhật số lượng món trên Navbar (từ API)
             function updateNavbarCartCount() {
-                $.get('/Cart/GetCartItemCount', function(data) {
+                $.get('/Cart/GetCartItemCount', function (data) {
                     $('.cart-count').text(data.count);
-                }).fail(function() {
+                }).fail(function () {
                     console.error("Failed to fetch cart count.");
                 });
             }
 
-            // Xử lý sự kiện click cho nút "Thêm"
             $('#featuredItems').on('click', '.add-to-cart-btn', function () {
                 const itemId = $(this).data('item-id');
-                const antiForgeryToken = $('input[name="__RequestVerificationToken"]').val();
+                const antiForgeryToken = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
 
                 $.ajax({
-                    url: '/Cart/AddToCart', 
+                    url: '/Cart/AddToCart',
                     type: 'POST',
                     data: {
                         itemId: itemId,
-                        quantity: 1, 
+                        quantity: 1,
                         __RequestVerificationToken: antiForgeryToken
                     },
                     success: function (response) {
@@ -189,8 +188,7 @@
                             }
                         }
                     },
-                    error: function (xhr, status, error) {
-                        console.error("Lỗi khi thêm vào giỏ hàng:", error);
+                    error: function () {
                         if (typeof showToast === 'function') {
                             showToast('Lỗi khi thêm vào giỏ hàng. Vui lòng thử lại.', 'danger');
                         }
@@ -198,7 +196,6 @@
                 });
             });
 
-            // Cập nhật giỏ hàng lần đầu khi tải trang
             updateNavbarCartCount();
         });
     </script>

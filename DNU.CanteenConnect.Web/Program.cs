@@ -1,58 +1,74 @@
-// DNU.CanteenConnect.Web/Program.cs
-
 using DNU.CanteenConnect.Web.Data;
 using DNU.CanteenConnect.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- Cấu hình Services ---
-
-// Cấu hình kết nối Database: Sử dụng SQLite
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? 
-                       throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// ========== 1. CẤU HÌNH DATABASE VÀ IDENTITY ==========
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(connectionString)); // Đã thay đổi từ UseSqlServer sang UseSqlite
+    options.UseSqlServer(connectionString));
 
-// Cấu hình Identity: Sử dụng ApplicationDbContext để lưu trữ Identity
-builder.Services.AddDefaultIdentity<User>(options => 
+builder.Services.AddDefaultIdentity<User>(options =>
     {
-        options.SignIn.RequireConfirmedAccount = false; // Đặt false cho dễ kiểm thử
+        options.SignIn.RequireConfirmedAccount = false;
     })
-    .AddRoles<Role>() // Thêm hỗ trợ Role
+    .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Thêm dịch vụ cho MVC (Controllers và Views)
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.SlidingExpiration = true;
+});
+
+// ========== 2. THÊM SESSION ==========
+builder.Services.AddDistributedMemoryCache(); // Bộ nhớ tạm
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Hết hạn sau 30 phút không hoạt động
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// ========== 3. DỊCH VỤ MVC / RAZOR ==========
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
-// --- Cấu hình HTTP Request Pipeline ---
-
+// ========== 4. BUILD APP ==========
 var app = builder.Build();
 
-// Cấu hình môi trường phát triển/sản xuất
+// ========== 5. HTTP REQUEST PIPELINE ==========
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint(); // Sử dụng trang lỗi cho Migrations trong Development
+    app.UseMigrationsEndPoint();
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error"); // Trang lỗi mặc định cho MVC trong Production
-    app.UseHsts(); // Thêm HSTS trong Production
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 
-app.UseHttpsRedirection(); // Chuyển hướng HTTP sang HTTPS
-app.UseStaticFiles();     // Cho phép phục vụ các tệp tĩnh (CSS, JS, hình ảnh)
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
-app.UseRouting();         // Định tuyến các yêu cầu đến các endpoint phù hợp
+app.UseRouting();
 
-app.UseAuthentication();  // Kích hoạt xác thực người dùng
-app.UseAuthorization();   // Kích hoạt phân quyền người dùng
+// *** QUAN TRỌNG: Session phải nằm trước UseAuthentication ***
+app.UseSession();
 
-// Định nghĩa routing cho MVC
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}"); // Tuyến đường mặc định: HomeController/Index
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

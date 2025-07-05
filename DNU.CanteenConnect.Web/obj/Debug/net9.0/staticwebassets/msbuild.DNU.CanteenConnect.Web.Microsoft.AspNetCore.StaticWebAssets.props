@@ -1,23 +1,5 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\images\cô_gái-removebg-preview.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>DNU.CanteenConnect.Web</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/DNU.CanteenConnect.Web</BasePath>
-      <RelativePath>css/images/cô_gái-removebg-preview.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>mnodyj8ada</Fingerprint>
-      <Integrity>Eky3/nEuYfcUc0I2Iu/wk6OjOR7J9CZEuE99/iP4hu4=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\images\cô_gái-removebg-preview.png'))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))">
       <SourceType>Package</SourceType>
       <SourceId>DNU.CanteenConnect.Web</SourceId>
@@ -120,8 +102,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>gtbflm1pm5</Fingerprint>
-      <Integrity>lIacru9fQRlgSjswUHDFRTFPrH/sWMdVvdSsd9zNQ1Y=</Integrity>
+      <Fingerprint>d2p9b1nmye</Fingerprint>
+      <Integrity>25n2DLVsKvKHSKVKazsbTP5svkJn9mmENSYuN0PMYGY=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))</OriginalItemSpec>

@@ -1,5 +1,4 @@
-﻿// DNU.CanteenConnect.Web/Models/FoodItem.cs
-using System.Collections.Generic; // THÊM using này nếu chưa có
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -29,32 +28,30 @@ namespace DNU.CanteenConnect.Web.Models
         [Display(Name = "URL Hình ảnh")]
         public string? ImageUrl { get; set; }
 
-        [Display(Name = "Có sẵn")]
+        [Display(Name = "Còn bán")]
         public bool IsAvailable { get; set; } = true;
 
         [Display(Name = "Món đặc biệt trong ngày")]
         public bool IsSpecialOfTheDay { get; set; } = false;
 
-        // --- GIỮ NGUYÊN CÁCH VIẾT CỦA BẠN ---
+        // Khóa ngoại tới FoodCategory
         [Required(ErrorMessage = "Danh mục món ăn là bắt buộc.")]
         [Display(Name = "Danh mục")]
         public int FoodCategoryCategoryId { get; set; }
 
         [ForeignKey("FoodCategoryCategoryId")]
-        public virtual FoodCategory? FoodCategory { get; set; } // Chỉ thêm 'virtual'
+        public virtual FoodCategory? FoodCategory { get; set; }
 
-        // --- GIỮ NGUYÊN CÁCH VIẾT CỦA BẠN ---
+        // Khóa ngoại tới Canteen
         [Required(ErrorMessage = "Nhà ăn là bắt buộc.")]
         [Display(Name = "Nhà ăn")]
         public int CanteenId { get; set; }
 
         [ForeignKey("CanteenId")]
-        public virtual Canteen? Canteen { get; set; } // Chỉ thêm 'virtual'
+        public virtual Canteen? Canteen { get; set; }
 
-        // --- CẬP NHẬT: THÊM 'virtual' ---
+        // Navigation property cho các mối quan hệ nhiều-nhiều
         public virtual ICollection<MenuItem>? MenuItems { get; set; }
-
-        // --- THÊM MỚI: DÒNG QUAN TRỌNG NHẤT ĐỂ SỬA LỖI ---
         public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

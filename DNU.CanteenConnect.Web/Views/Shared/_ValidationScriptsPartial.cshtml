@@ -1,2 +1,16 @@
-﻿<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+﻿<environment include="Development">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+</environment>
+<environment exclude="Development">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+            integrity="sha384-H+K7U5CnXl1h5ywQtwICsx9D6PP4+yIfuW+8kL3v9ZZTtmI3rL8zLb5vGqD5NiUd"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"
+            integrity="sha384-oPOj+OPjY2V5Uc2WRK7V+3TuE49eOy+B+dyv+xPGJ4oZLRq+LR9KXzOCGn2YUv8E"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"
+            integrity="sha384-nlcp3fNj37ljDlZpgSzD7HK3iV4NDG5b/69zvEX6EIDMliVnN5uKL/Hgy3aWwZ1O"
+            crossorigin="anonymous"></script>
+</environment>

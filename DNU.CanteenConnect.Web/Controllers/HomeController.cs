@@ -1,7 +1,9 @@
 ﻿using DNU.CanteenConnect.Web.Data;
 using DNU.CanteenConnect.Web.Models;
+using DNU.CanteenConnect.Web.Helpers; // <-- Thêm để dùng session
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,24 +25,57 @@ namespace DNU.CanteenConnect.Web.Controllers
         {
             var viewModel = new HomeViewModel();
 
-            // Lấy các món ăn, lấy kèm review, tính toán và đóng gói vào ViewModel
             viewModel.FeaturedFoodItems = await _context.FoodItems
-                                                        // --- THAY ĐỔI DUY NHẤT NẰM Ở ĐÂY ---
-                                                        // Lọc những món vừa là "Đặc biệt", vừa "Có sẵn"
-                                                        .Where(f => f.IsSpecialOfTheDay == true && f.IsAvailable == true) 
-                                                        .Include(f => f.Reviews) // Lấy kèm review để tính toán
-                                                        .Select(f => new MenuItemViewModel
-                                                        {
-                                                            FoodItem = f,
-                                                            AverageRating = f.Reviews.Any() ? f.Reviews.Average(r => r.Rating) : 0,
-                                                            ReviewCount = f.Reviews.Count()
-                                                        })
-                                                        .ToListAsync(); // Bỏ Take(6) để hiển thị tất cả món đặc biệt
-            
+                .Where(f => f.IsSpecialOfTheDay && f.IsAvailable)
+                .Include(f => f.Reviews)
+                .Select(f => new MenuItemViewModel
+                {
+                    FoodItem = f,
+                    AverageRating = f.Reviews.Any() ? f.Reviews.Average(r => r.Rating) : 0,
+                    ReviewCount = f.Reviews.Count()
+                })
+                .ToListAsync();
+
             return View(viewModel);
         }
-        
-        // --- CÁC PHẦN SAU ĐƯỢC GIỮ NGUYÊN TỪ CODE CỦA BẠN ---
+
+        //  ACTION: Thêm món vào giỏ hàng (Session)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddToCart(int foodItemId)
+        {
+            var foodItem = await _context.FoodItems.FindAsync(foodItemId);
+            if (foodItem == null || !foodItem.IsAvailable)
+            {
+                TempData["ErrorMessage"] = "Món ăn không tồn tại hoặc không khả dụng.";
+                return RedirectToAction("Index");
+            }
+
+            // Lấy hoặc tạo giỏ hàng trong Session
+            var cart = HttpContext.Session.Get<Cart>("GuestCart") ?? new Cart();
+
+            var existingItem = cart.CartItems.FirstOrDefault(i => i.FoodItemId == foodItemId);
+            if (existingItem != null)
+            {
+                existingItem.Quantity += 1;
+            }
+            else
+            {
+                cart.CartItems.Add(new CartItem
+                {
+                    FoodItemId = foodItemId,
+                    Quantity = 1,
+                    PriceAtAddition = foodItem.Price
+                });
+            }
+
+            // Cập nhật lại Session
+            HttpContext.Session.Set("GuestCart", cart);
+            TempData["SuccessMessage"] = "Đã thêm món vào giỏ hàng.";
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult About()
         {
             return View();

@@ -4,3 +4,18 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 });
+function updateNavbarCartCount() {
+    $.get('/Cart/GetCartItemCount', function (data) {
+        $('.cart-count').text(data.count);
+    });
+}
+
+$(document).ready(function () {
+    // Lần đầu load
+    requestAnimationFrame(updateNavbarCartCount);
+
+    // Khi sự kiện cartUpdated được trigger (sau khi thêm món thành công)
+    $(window).on('cartUpdated', function () {
+        requestAnimationFrame(updateNavbarCartCount);
+    });
+});

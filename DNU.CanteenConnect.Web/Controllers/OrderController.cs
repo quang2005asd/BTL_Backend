@@ -30,6 +30,7 @@ namespace DNU.CanteenConnect.Web.Controllers
 
         // GET: /Order/Checkout
         // Hiển thị trang thanh toán với thông tin giỏ hàng hiện tại
+        [Authorize]
         public async Task<IActionResult> Checkout()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);

@@ -1,17 +1,18 @@
-﻿// DNU.CanteenConnect.Web/Controllers/AccountController.cs
-using DNU.CanteenConnect.Web.Models;
+﻿using DNU.CanteenConnect.Web.Models;
+using DNU.CanteenConnect.Web.Data;
+using DNU.CanteenConnect.Web.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations; // For Data Annotations in ViewModels
-using Microsoft.AspNetCore.Authorization; // For [AllowAnonymous] and [Authorize]
-using System; // For DateTime
+using System.Linq;
+using System;
 
 namespace DNU.CanteenConnect.Web.Controllers
 {
-    // Đây là nơi định nghĩa các ViewModels cho Login và Register.
-    // Thường thì bạn sẽ đặt chúng trong thư mục 'ViewModels/Account'
-    // nhưng để tiện cho một file, tôi sẽ định nghĩa ở đây.
     public class LoginViewModel
     {
         [Required(ErrorMessage = "Email hoặc mã số là bắt buộc.")]
@@ -59,16 +60,19 @@ namespace DNU.CanteenConnect.Web.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly ILogger<AccountController> _logger; // Thêm ILogger
+        private readonly ILogger<AccountController> _logger;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
-            ILogger<AccountController> logger) // Inject ILogger
+            ILogger<AccountController> logger,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         // GET: /Account/Login
@@ -89,13 +93,8 @@ namespace DNU.CanteenConnect.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // Kiểm tra xem người dùng có thể đăng nhập bằng Email hoặc UserName không
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null)
-                {
-                    // Nếu không tìm thấy bằng email, thử tìm bằng UserName
-                    user = await _userManager.FindByNameAsync(model.Email);
-                }
+                var user = await _userManager.FindByEmailAsync(model.Email)
+                           ?? await _userManager.FindByNameAsync(model.Email);
 
                 if (user != null)
                 {
@@ -103,12 +102,15 @@ namespace DNU.CanteenConnect.Web.Controllers
                     if (result.Succeeded)
                     {
                         _logger.LogInformation("Người dùng đã đăng nhập.");
+
+                        // HỢP NHẤT GIỎ HÀNG
+                        await MergeSessionCartToDbCart(user.Id);
+
                         TempData["SuccessMessage"] = "Đăng nhập thành công!";
                         return RedirectToLocal(returnUrl);
                     }
                     if (result.RequiresTwoFactor)
                     {
-                        // Xử lý xác thực 2 yếu tố nếu có
                         return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                     }
                     if (result.IsLockedOut)
@@ -121,7 +123,6 @@ namespace DNU.CanteenConnect.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Tên đăng nhập hoặc mật khẩu không đúng.");
                 TempData["ErrorMessage"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
             }
-            // Nếu có lỗi, trả lại View với Model và lỗi
             return View(model);
         }
 
@@ -143,7 +144,6 @@ namespace DNU.CanteenConnect.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // Sử dụng Email làm UserName nếu UserName không được cung cấp, hoặc ngược lại
                 var userName = string.IsNullOrEmpty(model.UserName) ? model.Email : model.UserName;
 
                 var user = new User
@@ -151,7 +151,7 @@ namespace DNU.CanteenConnect.Web.Controllers
                     UserName = userName,
                     Email = model.Email,
                     PhoneNumber = model.PhoneNumber,
-                    CreatedDate = DateTime.UtcNow // Gán ngày tạo tài khoản
+                    CreatedDate = DateTime.UtcNow
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
@@ -160,7 +160,6 @@ namespace DNU.CanteenConnect.Web.Controllers
                 {
                     _logger.LogInformation("Người dùng đã tạo tài khoản mới với mật khẩu.");
 
-                    // Gán vai trò "Customer" cho người dùng mới
                     await _userManager.AddToRoleAsync(user, "Customer");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
@@ -168,13 +167,13 @@ namespace DNU.CanteenConnect.Web.Controllers
                     TempData["SuccessMessage"] = "Đăng ký tài khoản thành công!";
                     return RedirectToLocal(returnUrl);
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                     TempData["ErrorMessage"] = "Đăng ký không thành công: " + error.Description;
                 }
             }
-            // Nếu có lỗi, trả lại View với Model và lỗi
             return View(model);
         }
 
@@ -186,13 +185,13 @@ namespace DNU.CanteenConnect.Web.Controllers
             await _signInManager.SignOutAsync();
             _logger.LogInformation("Người dùng đã đăng xuất.");
             TempData["SuccessMessage"] = "Bạn đã đăng xuất thành công.";
+
             if (returnUrl != null)
             {
                 return LocalRedirect(returnUrl);
             }
             else
             {
-                // Điều hướng về trang chủ sau khi đăng xuất
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -206,6 +205,45 @@ namespace DNU.CanteenConnect.Web.Controllers
             else
             {
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        // HÀM HỢP NHẤT GIỎ HÀNG TỪ SESSION VÀO DB
+        private async Task MergeSessionCartToDbCart(string userId)
+        {
+            var sessionCart = HttpContext.Session.Get<Cart>("GuestCart");
+            if (sessionCart != null && sessionCart.CartItems.Any())
+            {
+                var dbCart = await _context.Carts
+                                           .Include(c => c.CartItems)
+                                           .FirstOrDefaultAsync(c => c.UserId == userId);
+
+                if (dbCart == null)
+                {
+                    dbCart = new Cart { UserId = userId, CreatedDate = DateTime.Now };
+                    _context.Carts.Add(dbCart);
+                }
+
+                foreach (var sessionItem in sessionCart.CartItems)
+                {
+                    var dbItem = dbCart.CartItems.FirstOrDefault(i => i.FoodItemId == sessionItem.FoodItemId);
+                    if (dbItem != null)
+                    {
+                        dbItem.Quantity += sessionItem.Quantity;
+                    }
+                    else
+                    {
+                        dbCart.CartItems.Add(new CartItem
+                        {
+                            FoodItemId = sessionItem.FoodItemId,
+                            Quantity = sessionItem.Quantity,
+                            PriceAtAddition = sessionItem.PriceAtAddition
+                        });
+                    }
+                }
+
+                await _context.SaveChangesAsync();
+                HttpContext.Session.Remove("GuestCart");
             }
         }
     }

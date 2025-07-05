@@ -265,10 +265,6 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.slim.min.map"
     },
     {
-      "Id": "C:\\Users\\quang\\Downloads\\_backend\\cô_gái-removebg-preview.png",
-      "PackagePath": "staticwebassets\\css\\images\\cô_gái-removebg-preview.png"
-    },
-    {
       "Id": "obj\\Debug\\net9.0\\staticwebassets\\msbuild.DNU.CanteenConnect.Web.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },
