@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj": {}
+    "C:\\Users\\quang\\RiderProjects\\BTL_Backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj": {}
   },
   "projects": {
-    "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj": {
+    "C:\\Users\\quang\\RiderProjects\\BTL_Backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
+        "projectUniqueName": "C:\\Users\\quang\\RiderProjects\\BTL_Backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
         "projectName": "DNU.CanteenConnect.Web",
-        "projectPath": "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
+        "projectPath": "C:\\Users\\quang\\RiderProjects\\BTL_Backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
         "packagesPath": "C:\\Users\\quang\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\",
+        "outputPath": "C:\\Users\\quang\\RiderProjects\\BTL_Backend\\DNU.CanteenConnect.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\quang\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -70,10 +70,6 @@
               "target": "Package",
               "version": "[9.0.6, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
-              "target": "Package",
-              "version": "[9.0.6, )"
-            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.5, )"
@@ -82,11 +78,15 @@
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[9.0.6, )"
+              "version": "[10.0.0, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             },
             "QRCoder": {
               "target": "Package",
