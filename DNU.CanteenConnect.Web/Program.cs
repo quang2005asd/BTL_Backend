@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
 // ========== CẤU HÌNH PORT CHO RENDER (GIỮ NGUYÊN) ==========
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://0.0.0.0:{port}");
