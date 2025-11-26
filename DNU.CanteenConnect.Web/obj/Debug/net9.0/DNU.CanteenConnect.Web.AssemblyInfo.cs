@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DNU.CanteenConnect.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8416242474a88e5e7bb05df162a9be5c823bac12")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7cef4e51c7f4527da77a5881f17097699b7a89c2")]
 [assembly: System.Reflection.AssemblyProductAttribute("DNU.CanteenConnect.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DNU.CanteenConnect.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
