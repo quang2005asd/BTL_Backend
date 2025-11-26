@@ -47,16 +47,18 @@ cartTotal = Model.CartItems.Sum(ci => ci.Quantity * ci.PriceAtAddition);
                 <div class="d-flex justify-content-center mt-4">
                     @* Khung viền cam nét đứt *@
                     <div class="qr-code-container text-center p-4"
-                         style="border: 2px dashed orange; border-radius: 15px; max-width: 400px; width: 100%; background-color: #fff;">
+                         style=" border: 2px dashed orange; border-radius: 15px; max-width: 400px; width: 100%; background-color: #fff;">
 
                         @* Ảnh QR *@
                         <img id="qrCodeImage" src="https://placehold.co/250x250/cccccc/ffffff?text=Đang+tải+QR..."
                              alt="Mã QR Chuyển khoản" class="img-fluid rounded mb-3"
-                             onerror="console.error('Lỗi tải ảnh QR: ' + this.src); this.onerror=null; this.src='https://placehold.co/250x250/cccccc/ffffff?text=Lỗi+QR!';" />
+                             onerror="console.error('Lỗi tải ảnh QR: ' + this.src); this.onerror=null; this.src='https://placehold.co/250x250/cccccc/ffffff?text=Lỗi+QR!';"
+                            style = "magin:auto;"
+                             />
 
                         @* Các dòng chữ bên trong khung *@
                         <p class="mb-2" style="font-weight: 500; color: #555;">
-                            Quét mã QR để chuyển khoản nhanh chóng và chính xác.
+                            Quét mã QR để chuyển khoản .
                         </p>
                         <hr style="width: 50%; margin: 10px auto; border-top: 1px solid #ddd;">
 
