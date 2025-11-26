@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
+// ========== CẤU HÌNH PORT CHO RENDER ==========
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://0.0.0.0:{port}");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ========== 1. CẤU HÌNH DATABASE VÀ IDENTITY ==========
@@ -28,10 +32,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 // ========== 2. THÊM SESSION ==========
-builder.Services.AddDistributedMemoryCache(); // Bộ nhớ tạm
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Hết hạn sau 30 phút không hoạt động
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -59,7 +63,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// *** QUAN TRỌNG: Session phải nằm trước UseAuthentication ***
 app.UseSession();
 
 app.UseAuthentication();
