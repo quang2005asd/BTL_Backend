@@ -8836,11 +8836,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
+      "projectUniqueName": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
       "projectName": "DNU.CanteenConnect.Web",
-      "projectPath": "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
+      "projectPath": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web.csproj",
       "packagesPath": "C:\\Users\\quang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\quang\\Downloads\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\",
+      "outputPath": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\quang\\AppData\\Roaming\\NuGet\\NuGet.Config"

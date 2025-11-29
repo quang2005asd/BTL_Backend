@@ -34,6 +34,11 @@ namespace DNU.CanteenConnect.Web.Models
         [Display(Name = "Món đặc biệt trong ngày")]
         public bool IsSpecialOfTheDay { get; set; } = false;
 
+        [Required(ErrorMessage = "Số lượng tồn kho là bắt buộc.")]
+        [Range(0, int.MaxValue, ErrorMessage = "Số lượng tồn kho không được âm.")]
+        [Display(Name = "Số lượng tồn kho")]
+        public int StockQuantity { get; set; } = 0; // Mặc định là 0
+
         // Khóa ngoại tới FoodCategory
         [Required(ErrorMessage = "Danh mục món ăn là bắt buộc.")]
         [Display(Name = "Danh mục")]
