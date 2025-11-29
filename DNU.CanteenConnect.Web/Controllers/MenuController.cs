@@ -137,6 +137,7 @@ namespace DNU.CanteenConnect.Web.Controllers
                     description = foodItem.Description,
                     price = foodItem.Price,
                     imageUrl = foodItem.ImageUrl,
+                    stockQuantity = foodItem.StockQuantity, // Thêm dòng này
                     canteenName = foodItem.Canteen?.Name,
                     categoryName = foodItem.FoodCategory?.Name,
                     averageRating = reviews.Any() ? reviews.Average(r => r.Rating) : 0,

@@ -950,6 +950,7 @@ img {
   border-top-right-radius: 18px;
   loading: lazy;
 }
+
 /* CSS cho hiển thị sao lẻ (fractional stars) */
 .rating-stars-fractional {
   display: inline-block;
@@ -977,6 +978,7 @@ img {
 .rating-stars-fractional .stars-overlay::before {
   content: "\f005 \f005 \f005 \f005 \f005"; /* 5 icon sao đầy (fas fa-star) */
 }
+
 /* === NÂNG CẤP GIAO DIỆN TRANG QUẢN LÝ ĐƠN HÀNG === */
 
 /* Tăng độ mềm mại cho card chính và bộ lọc */
@@ -1048,4 +1050,35 @@ img {
   max-width: 200px;
   margin-bottom: 1.5rem;
   opacity: 0.7;
+}
+
+/* CSS cho trạng thái hết hàng */
+.food-card.sold-out {
+    position: relative;
+}
+
+.sold-out-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    border-radius: 18px; /* Giống với food-card */
+}
+
+.sold-out-overlay span {
+    background-color: #dc3545;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    transform: rotate(-15deg);
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

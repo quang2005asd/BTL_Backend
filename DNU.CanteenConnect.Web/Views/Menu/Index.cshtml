@@ -38,7 +38,13 @@
             @foreach (var item in Model)
             {
                 <div class="col">
-                    <div class="card h-100 shadow-sm food-card">
+                    <div class="card h-100 shadow-sm food-card @(item.FoodItem.StockQuantity <= 0 ? "sold-out" : "")">
+                        @if (item.FoodItem.StockQuantity <= 0)
+                        {
+                            <div class="sold-out-overlay">
+                                <span>Hết hàng</span>
+                            </div>
+                        }
                         <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/Menu/Index">
                             <img src="@(item.FoodItem.ImageUrl ?? "https://placehold.co/400x250/cccccc/ffffff?text=No+Image")" class="card-img-top food-item-img" alt="@item.FoodItem.Name" />
                         </a>
@@ -61,7 +67,8 @@
                                 <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
                                         data-item-id="@item.FoodItem.ItemId"
                                         data-item-name="@item.FoodItem.Name"
-                                        data-item-price="@item.FoodItem.Price">
+                                        data-item-price="@item.FoodItem.Price"
+                                        @(item.FoodItem.StockQuantity <= 0 ? "disabled" : "")>
                                     <i class="fas fa-cart-plus me-2"></i> Thêm
                                 </button>
                             </div>
@@ -78,8 +85,6 @@
         }
     </div>
 </div>
-
-<!-- Form ẩn để lấy AntiForgeryToken cho AJAX -->
 <form id="antiForgeryForm" method="post" style="display:none;">
     @Html.AntiForgeryToken()
 </form>
@@ -126,10 +131,15 @@
 
                 if (items && items.length > 0) {
                     items.forEach(item => {
+                        const isSoldOut = item.stockQuantity <= 0;
+                        const soldOutClass = isSoldOut ? "sold-out" : "";
+                        const soldOutOverlay = isSoldOut ? `<div class="sold-out-overlay"><span>Hết hàng</span></div>` : "";
+                        const disabledAttr = isSoldOut ? "disabled" : "";
                         const ratingHtml = renderFractionalStars(item.averageRating, item.reviewCount);
                         const itemHtml = `
                             <div class="col">
-                                <div class="card h-100 shadow-sm food-card">
+                                <div class="card h-100 shadow-sm food-card ${soldOutClass}">
+                                    ${soldOutOverlay}
                                     <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index">
                                         <img src="${item.imageUrl || 'https://placehold.co/400x250/cccccc/ffffff?text=No+Image'}" class="card-img-top food-item-img" alt="${item.name}" />
                                     </a>
@@ -144,7 +154,7 @@
                                         <div class="d-flex justify-content-between align-items-center mt-auto">
                                             <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">${item.price.toLocaleString('vi-VN')} VNĐ</p>
                                             <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
-                                                    data-item-id="${item.itemId}" data-item-name="${item.name}" data-item-price="${item.price}">
+                                                    data-item-id="${item.itemId}" data-item-name="${item.name}" data-item-price="${item.price}" ${disabledAttr}>
                                                 <i class="fas fa-cart-plus me-2"></i> Thêm
                                             </button>
                                         </div>
