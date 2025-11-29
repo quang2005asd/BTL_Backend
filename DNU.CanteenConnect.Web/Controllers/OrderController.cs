@@ -81,7 +81,7 @@ namespace DNU.CanteenConnect.Web.Controllers
                                          .ThenInclude(ci => ci.FoodItem) // Bao gồm thông tin FoodItem để lấy giá và các chi tiết khác
                                      .FirstOrDefaultAsync(c => c.UserId == userId);
 
-            if (cart == null || !cart.CartItems!.Any())
+            if (cart == null || cart.CartItems == null || !cart.CartItems.Any())
             {
                 return Json(new { success = false, message = "Giỏ hàng của bạn đang trống." });
             }
@@ -139,13 +139,10 @@ namespace DNU.CanteenConnect.Web.Controllers
             return Json(new { success = true, message = "Đơn hàng của bạn đã được đặt thành công!", redirectUrl = Url.Action("Details", "OrderHistory", new { id = order.OrderId }) });
         }
 
-        // NEW ACTION: GET /Order/GetQrCodeForCheckout?totalAmount={amount}&userName={name}
-        // Action này sẽ tạo QR code ở phía server cho trang checkout
         [HttpGet]
-        [AllowAnonymous] // Cho phép truy cập mà không cần đăng nhập (nếu cần)
+        [AllowAnonymous] 
         public async Task<IActionResult> GetQrCodeForCheckout(decimal totalAmount, string userName)
         {
-            // Làm sạch số tiền để đảm bảo nó là số nguyên khi truyền vào API VietQR
             int cleanAmount = (int)Math.Round(totalAmount);
 
             // Thông tin ngân hàng cố định
@@ -185,7 +182,7 @@ namespace DNU.CanteenConnect.Web.Controllers
                     JsonDocument doc = JsonDocument.Parse(responseBody);
                     JsonElement root = doc.RootElement;
 
-                    string actualQrCodeData = "";
+                    string? actualQrCodeData = null;
                     if (root.TryGetProperty("data", out JsonElement dataElement) &&
                         dataElement.TryGetProperty("qrCode", out JsonElement qrCodeElement))
                     {

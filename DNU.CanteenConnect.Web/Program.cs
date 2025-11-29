@@ -4,15 +4,23 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+// ========== CẤU HÌNH PORT CHO RENDER (GIỮ NGUYÊN) ==========
+var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://0.0.0.0:{port}");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // ========== 1. CẤU HÌNH DATABASE VÀ IDENTITY ==========
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
                        ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
+// Cấu hình kết nối PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
+// Cấu hình Identity (User, Role)
 builder.Services.AddDefaultIdentity<User>(options =>
     {
         options.SignIn.RequireConfirmedAccount = false;
@@ -20,6 +28,7 @@ builder.Services.AddDefaultIdentity<User>(options =>
     .AddRoles<Role>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+// Cấu hình Cookie
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/Account/Login";
@@ -28,10 +37,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 // ========== 2. THÊM SESSION ==========
-builder.Services.AddDistributedMemoryCache(); // Bộ nhớ tạm
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Hết hạn sau 30 phút không hoạt động
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -43,7 +52,26 @@ builder.Services.AddRazorPages();
 // ========== 4. BUILD APP ==========
 var app = builder.Build();
 
-// ========== 5. HTTP REQUEST PIPELINE ==========
+// ========== 5. TỰ ĐỘNG CHẠY MIGRATION (PHẦN QUAN TRỌNG MỚI THÊM) ==========
+// Đoạn này giúp tạo bảng tự động trên Render khi web khởi động
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        context.Database.Migrate(); // Tự động tạo bảng nếu chưa có
+        Console.WriteLine("--> Đã chạy Migration (Tạo bảng) thành công!");
+    }
+    catch (Exception ex)
+    {
+        // Ghi log lỗi nếu không tạo được bảng
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "--> Lỗi nghiêm trọng khi chạy Migration.");
+    }
+}
+
+// ========== 6. HTTP REQUEST PIPELINE ==========
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -59,8 +87,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// *** QUAN TRỌNG: Session phải nằm trước UseAuthentication ***
-app.UseSession();
+app.UseSession(); // Kích hoạt Session
 
 app.UseAuthentication();
 app.UseAuthorization();

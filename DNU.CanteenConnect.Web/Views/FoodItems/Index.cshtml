@@ -56,6 +56,7 @@
                                 <th>Giá</th>
                                 <th>Nhà ăn</th>
                                 <th>Danh mục</th>
+                                <th>Tồn kho</th>
                                 <th>Ảnh</th>
                                 <th class="text-center">Có sẵn</th>
                                 <th class="text-center">Đặc biệt</th>
@@ -70,6 +71,7 @@
                                     <td class="fw-bold">@item.Price.ToString("N0") VNĐ</td>
                                     <td>@item.Canteen!.Name</td>
                                     <td>@item.FoodCategory!.Name</td>
+                                    <td><span class="badge bg-info">@item.StockQuantity</span></td>
                                     <td>
                                         <img src="@(item.ImageUrl ?? "https://placehold.co/80x80/cccccc/ffffff?text=No+Img")" 
                                              alt="@item.Name" class="img-thumbnail" 
