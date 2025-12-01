@@ -75,10 +75,10 @@ namespace DNU.CanteenConnect.Web.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CartId"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -132,7 +132,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("MenuDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(500)
@@ -230,7 +230,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<int>("StockQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("ItemId");
 
@@ -389,7 +389,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("character varying(1000)");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -465,7 +465,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -543,7 +543,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -602,21 +602,13 @@ namespace DNU.CanteenConnect.Web.Migrations
                             Id = "d125130b-d248-4395-8178-01124e5251a4",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f286828a-1a3b-4c4f-a719-7f51a4e21a2c",
-<<<<<<< HEAD
-                            CreatedDate = new DateTime(2025, 11, 29, 12, 38, 46, 226, DateTimeKind.Utc).AddTicks(3466),
-=======
-                            CreatedDate = new DateTime(2025, 11, 26, 8, 57, 45, 513, DateTimeKind.Utc).AddTicks(3204),
->>>>>>> e72fef2c375e3b3092567dffaf5c0931757c5641
+                            CreatedDate = new DateTime(2025, 12, 1, 16, 1, 50, 942, DateTimeKind.Utc).AddTicks(5115),
                             Email = "admin@canteen.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANTEEN.COM",
                             NormalizedUserName = "ADMIN@CANTEEN.COM",
-<<<<<<< HEAD
-                            PasswordHash = "AQAAAAIAAYagAAAAEO83mxMahTpLmO8b3xZ4tUCGUIh1+vYXNEwGboYpy+8oup4zlzQexj386p1myUBuGA==",
-=======
-                            PasswordHash = "AQAAAAIAAYagAAAAEP1mD57ViGVnZWk1FJKd+FM31AmoxHcU/SlcAyPnnS3Hv6y7Oro5OXW2KaFFcI1GAA==",
->>>>>>> e72fef2c375e3b3092567dffaf5c0931757c5641
+                            PasswordHash = "AQAAAAIAAYagAAAAEGlyVt0bJxU2pqKUw/+8m2Nh+AEV7p+XuvVjeN5joaVNmfuL4Ej0sbOB84d8H4ptmw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "0a5a51c4-118d-4f11-9a74-9f20e4b868e4",
                             TwoFactorEnabled = false,

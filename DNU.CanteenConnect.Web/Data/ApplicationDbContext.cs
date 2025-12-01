@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace DNU.CanteenConnect.Web.Data
 {
