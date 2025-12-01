@@ -6,15 +6,17 @@ using System;
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-// ========== CẤU HÌNH PORT CHO RENDER (GIỮ NGUYÊN) ==========
+// ========== CẤU HÌNH PORT CHO RENDER ==========
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://0.0.0.0:{port}");
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ========== 1. CẤU HÌNH DATABASE VÀ IDENTITY ==========
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                       ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// ✅ SỬA PHẦN NÀY: Ưu tiên DATABASE_URL từ Render, fallback về appsettings.json
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
+                       ?? builder.Configuration.GetConnectionString("DefaultConnection")
+                       ?? throw new InvalidOperationException("Connection string not found.");
 
 // Cấu hình kết nối PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -52,22 +54,20 @@ builder.Services.AddRazorPages();
 // ========== 4. BUILD APP ==========
 var app = builder.Build();
 
-// ========== 5. TỰ ĐỘNG CHẠY MIGRATION (PHẦN QUAN TRỌNG MỚI THÊM) ==========
-// Đoạn này giúp tạo bảng tự động trên Render khi web khởi động
+// ========== 5. TỰ ĐỘNG CHẠY MIGRATION ==========
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
         var context = services.GetRequiredService<ApplicationDbContext>();
-        context.Database.Migrate(); // Tự động tạo bảng nếu chưa có
-        Console.WriteLine("--> Đã chạy Migration (Tạo bảng) thành công!");
+        context.Database.Migrate(); // Tự động chạy migration
+        Console.WriteLine("✅ Migration completed successfully!");
     }
     catch (Exception ex)
     {
-        // Ghi log lỗi nếu không tạo được bảng
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "--> Lỗi nghiêm trọng khi chạy Migration.");
+        logger.LogError(ex, "❌ Error occurred while running migrations.");
     }
 }
 
@@ -87,7 +87,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession(); // Kích hoạt Session
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
