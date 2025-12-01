@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DNU.CanteenConnect.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251126085747_InitialMigration_Postgres")]
-    partial class InitialMigration_Postgres
+    [Migration("20251201164333_AddStockQuantityToFoodItem")]
+    partial class AddStockQuantityToFoodItem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,10 +78,10 @@ namespace DNU.CanteenConnect.Web.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("CartId"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -135,7 +135,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("MenuDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Notes")
                         .HasMaxLength(500)
@@ -232,6 +232,9 @@ namespace DNU.CanteenConnect.Web.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("integer");
+
                     b.HasKey("ItemId");
 
                     b.HasIndex("CanteenId");
@@ -251,7 +254,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = true,
                             Name = "Cơm Gà Xối Mỡ",
-                            Price = 45000m
+                            Price = 45000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -263,7 +267,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = false,
                             Name = "Phở Bò",
-                            Price = 40000m
+                            Price = 40000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -275,7 +280,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = true,
                             Name = "Trà Sữa Trân Châu Đường Đen",
-                            Price = 25000m
+                            Price = 25000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -287,7 +293,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = false,
                             Name = "Bánh Mì Kẹp",
-                            Price = 20000m
+                            Price = 20000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -299,7 +306,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = false,
                             Name = "Mì Ý Sốt Bò Băm",
-                            Price = 50000m
+                            Price = 50000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -311,7 +319,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = false,
                             Name = "Nước Cam Ép",
-                            Price = 18000m
+                            Price = 18000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -323,7 +332,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = false,
                             Name = "Nem Lụi",
-                            Price = 35000m
+                            Price = 35000m,
+                            StockQuantity = 0
                         },
                         new
                         {
@@ -335,7 +345,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                             IsAvailable = true,
                             IsSpecialOfTheDay = false,
                             Name = "Bún Chả",
-                            Price = 42000m
+                            Price = 42000m,
+                            StockQuantity = 0
                         });
                 });
 
@@ -381,7 +392,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("character varying(1000)");
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("PaymentMethod")
                         .IsRequired()
@@ -457,7 +468,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -535,7 +546,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -594,13 +605,13 @@ namespace DNU.CanteenConnect.Web.Migrations
                             Id = "d125130b-d248-4395-8178-01124e5251a4",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f286828a-1a3b-4c4f-a719-7f51a4e21a2c",
-                            CreatedDate = new DateTime(2025, 11, 26, 8, 57, 45, 513, DateTimeKind.Utc).AddTicks(3204),
+                            CreatedDate = new DateTime(2025, 12, 1, 16, 43, 32, 656, DateTimeKind.Utc).AddTicks(2481),
                             Email = "admin@canteen.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANTEEN.COM",
                             NormalizedUserName = "ADMIN@CANTEEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP1mD57ViGVnZWk1FJKd+FM31AmoxHcU/SlcAyPnnS3Hv6y7Oro5OXW2KaFFcI1GAA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIPPfuMMFNg+l/csSiCKYJKTpxwlwkTGQ17pBhR56YQGwoe7g4N0eEDIwExfMgjOyA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "0a5a51c4-118d-4f11-9a74-9f20e4b868e4",
                             TwoFactorEnabled = false,

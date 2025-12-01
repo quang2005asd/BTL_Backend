@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DNU.CanteenConnect.Web.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration_Postgres : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,7 +34,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Address = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -197,8 +197,8 @@ namespace DNU.CanteenConnect.Web.Migrations
                     CartId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    LastModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -217,7 +217,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                 {
                     MenuId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    MenuDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    MenuDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CanteenId = table.Column<int>(type: "integer", nullable: true),
                     Notes = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
                 },
@@ -238,7 +238,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                     OrderId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Status = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Notes = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     TotalAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
@@ -274,6 +274,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                     ImageUrl = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     IsAvailable = table.Column<bool>(type: "boolean", nullable: false),
                     IsSpecialOfTheDay = table.Column<bool>(type: "boolean", nullable: false),
+                    StockQuantity = table.Column<int>(type: "integer", nullable: false),
                     FoodCategoryCategoryId = table.Column<int>(type: "integer", nullable: false),
                     CanteenId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -387,7 +388,7 @@ namespace DNU.CanteenConnect.Web.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Rating = table.Column<int>(type: "integer", nullable: false),
                     Comment = table.Column<string>(type: "character varying(2000)", maxLength: 2000, nullable: true),
-                    ReviewDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    ReviewDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -419,7 +420,7 @@ namespace DNU.CanteenConnect.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Address", "ConcurrencyStamp", "CreatedDate", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "d125130b-d248-4395-8178-01124e5251a4", 0, null, "f286828a-1a3b-4c4f-a719-7f51a4e21a2c", new DateTime(2025, 11, 26, 8, 57, 45, 513, DateTimeKind.Utc).AddTicks(3204), "admin@canteen.com", true, false, null, "ADMIN@CANTEEN.COM", "ADMIN@CANTEEN.COM", "AQAAAAIAAYagAAAAEP1mD57ViGVnZWk1FJKd+FM31AmoxHcU/SlcAyPnnS3Hv6y7Oro5OXW2KaFFcI1GAA==", null, false, "0a5a51c4-118d-4f11-9a74-9f20e4b868e4", false, "admin@canteen.com" });
+                values: new object[] { "d125130b-d248-4395-8178-01124e5251a4", 0, null, "f286828a-1a3b-4c4f-a719-7f51a4e21a2c", new DateTime(2025, 12, 1, 16, 43, 3, 360, DateTimeKind.Utc).AddTicks(8953), "admin@canteen.com", true, false, null, "ADMIN@CANTEEN.COM", "ADMIN@CANTEEN.COM", "AQAAAAIAAYagAAAAEL2T5pEcShNoWnWy76BJ96z0g2rzyBwmdQTsrop/3N/0JyPe4Q6u7ORDnAfUGy0cRA==", null, false, "0a5a51c4-118d-4f11-9a74-9f20e4b868e4", false, "admin@canteen.com" });
 
             migrationBuilder.InsertData(
                 table: "Canteens",
@@ -447,17 +448,17 @@ namespace DNU.CanteenConnect.Web.Migrations
 
             migrationBuilder.InsertData(
                 table: "FoodItems",
-                columns: new[] { "ItemId", "CanteenId", "Description", "FoodCategoryCategoryId", "ImageUrl", "IsAvailable", "IsSpecialOfTheDay", "Name", "Price" },
+                columns: new[] { "ItemId", "CanteenId", "Description", "FoodCategoryCategoryId", "ImageUrl", "IsAvailable", "IsSpecialOfTheDay", "Name", "Price", "StockQuantity" },
                 values: new object[,]
                 {
-                    { 1, 1, "Cơm nóng hổi ăn kèm gà xối mỡ giòn tan", 1, "https://topchuan.com/wp-content/uploads/2023/04/Com-Ga-Xoi-Mo-77-1.jpg", true, true, "Cơm Gà Xối Mỡ", 45000m },
-                    { 2, 1, "Phở truyền thống với thịt bò tươi", 1, "https://cdn.tgdd.vn/Files/2017/03/18/962092/an-lien-3-bat-pho-voi-cong-thuc-nau-pho-nay-202201261419401397.jpg", true, false, "Phở Bò", 40000m },
-                    { 3, 1, "Trà sữa thơm ngon với trân châu đường đen dẻo dai", 3, "https://cdn.tgdd.vn/Files/2022/01/21/1412109/huong-dan-cach-lam-tra-sua-tran-chau-duong-den-202201211522033706.jpg", true, true, "Trà Sữa Trân Châu Đường Đen", 25000m },
-                    { 4, 1, "Bánh mì giòn rụm kẹp thịt và rau tươi", 2, "https://tapchiamthuc.net/wp-content/uploads/2023/03/banh-mi-kep-viet-nam-17.jpg", true, false, "Bánh Mì Kẹp", 20000m },
-                    { 5, 1, "Mì Ý với sốt bò băm đậm đà", 1, "https://cdn.tgdd.vn/Files/2019/04/15/1160777/cach-lam-mi-spaghetti-sot-bo-bam-trong-3-phut-voi-panzani-202203031421227202.jpg", true, false, "Mì Ý Sốt Bò Băm", 50000m },
-                    { 6, 1, "Nước cam ép tươi nguyên chất", 3, "https://tse3.mm.bing.net/th?id=OIP.BMSD4FVGoFVZDnP6_0gYoQHaEk&pid=Api&P=0&h=180", true, false, "Nước Cam Ép", 18000m },
-                    { 7, 1, "Nem lụi thơm ngon, ăn kèm nước chấm đặc biệt", 2, "https://statics.vinpearl.com/nem-lui-nha-trang-07_1630987697.jpeg", true, false, "Nem Lụi", 35000m },
-                    { 8, 1, "Bún chả Hà Nội trứ danh", 1, "https://tse2.mm.bing.net/th?id=OIP.0M4f-v1qaFU6jzyxobA9QAHaFj&pid=Api&P=0&h=180", true, false, "Bún Chả", 42000m }
+                    { 1, 1, "Cơm nóng hổi ăn kèm gà xối mỡ giòn tan", 1, "https://topchuan.com/wp-content/uploads/2023/04/Com-Ga-Xoi-Mo-77-1.jpg", true, true, "Cơm Gà Xối Mỡ", 45000m, 0 },
+                    { 2, 1, "Phở truyền thống với thịt bò tươi", 1, "https://cdn.tgdd.vn/Files/2017/03/18/962092/an-lien-3-bat-pho-voi-cong-thuc-nau-pho-nay-202201261419401397.jpg", true, false, "Phở Bò", 40000m, 0 },
+                    { 3, 1, "Trà sữa thơm ngon với trân châu đường đen dẻo dai", 3, "https://cdn.tgdd.vn/Files/2022/01/21/1412109/huong-dan-cach-lam-tra-sua-tran-chau-duong-den-202201211522033706.jpg", true, true, "Trà Sữa Trân Châu Đường Đen", 25000m, 0 },
+                    { 4, 1, "Bánh mì giòn rụm kẹp thịt và rau tươi", 2, "https://tapchiamthuc.net/wp-content/uploads/2023/03/banh-mi-kep-viet-nam-17.jpg", true, false, "Bánh Mì Kẹp", 20000m, 0 },
+                    { 5, 1, "Mì Ý với sốt bò băm đậm đà", 1, "https://cdn.tgdd.vn/Files/2019/04/15/1160777/cach-lam-mi-spaghetti-sot-bo-bam-trong-3-phut-voi-panzani-202203031421227202.jpg", true, false, "Mì Ý Sốt Bò Băm", 50000m, 0 },
+                    { 6, 1, "Nước cam ép tươi nguyên chất", 3, "https://tse3.mm.bing.net/th?id=OIP.BMSD4FVGoFVZDnP6_0gYoQHaEk&pid=Api&P=0&h=180", true, false, "Nước Cam Ép", 18000m, 0 },
+                    { 7, 1, "Nem lụi thơm ngon, ăn kèm nước chấm đặc biệt", 2, "https://statics.vinpearl.com/nem-lui-nha-trang-07_1630987697.jpeg", true, false, "Nem Lụi", 35000m, 0 },
+                    { 8, 1, "Bún chả Hà Nội trứ danh", 1, "https://tse2.mm.bing.net/th?id=OIP.0M4f-v1qaFU6jzyxobA9QAHaFj&pid=Api&P=0&h=180", true, false, "Bún Chả", 42000m, 0 }
                 });
 
             migrationBuilder.CreateIndex(

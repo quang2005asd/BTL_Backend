@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DNU.CanteenConnect.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251201160151_AddStockQuantityToFoodItem")]
-    partial class AddStockQuantityToFoodItem
+    [Migration("20251201164304_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -605,13 +605,13 @@ namespace DNU.CanteenConnect.Web.Migrations
                             Id = "d125130b-d248-4395-8178-01124e5251a4",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f286828a-1a3b-4c4f-a719-7f51a4e21a2c",
-                            CreatedDate = new DateTime(2025, 12, 1, 16, 1, 50, 942, DateTimeKind.Utc).AddTicks(5115),
+                            CreatedDate = new DateTime(2025, 12, 1, 16, 43, 3, 360, DateTimeKind.Utc).AddTicks(8953),
                             Email = "admin@canteen.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANTEEN.COM",
                             NormalizedUserName = "ADMIN@CANTEEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGlyVt0bJxU2pqKUw/+8m2Nh+AEV7p+XuvVjeN5joaVNmfuL4Ej0sbOB84d8H4ptmw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEL2T5pEcShNoWnWy76BJ96z0g2rzyBwmdQTsrop/3N/0JyPe4Q6u7ORDnAfUGy0cRA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "0a5a51c4-118d-4f11-9a74-9f20e4b868e4",
                             TwoFactorEnabled = false,
