@@ -88,7 +88,7 @@ namespace DNU.CanteenConnect.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,CanteenStaff")]
-        public async Task<IActionResult> Create([Bind("ItemId,Name,Description,Price,ImageUrl,IsAvailable,IsSpecialOfTheDay,FoodCategoryCategoryId,CanteenId")] FoodItem foodItem)
+        public async Task<IActionResult> Create([Bind("ItemId,Name,Description,Price,ImageUrl,IsAvailable,IsSpecialOfTheDay,StockQuantity,FoodCategoryCategoryId,CanteenId")] FoodItem foodItem)
         {
             ModelState.Remove("FoodCategory");
             ModelState.Remove("Canteen");

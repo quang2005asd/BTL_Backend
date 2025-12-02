@@ -12,8 +12,6 @@ Environment.SetEnvironmentVariable("ASPNETCORE_URLS", $"http://0.0.0.0:{port}");
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ========== 1. CẤU HÌNH DATABASE VÀ IDENTITY ==========
-// ✅ SỬA PHẦN NÀY: Ưu tiên DATABASE_URL từ Render, fallback về appsettings.json
 var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
                        ?? builder.Configuration.GetConnectionString("DefaultConnection")
                        ?? throw new InvalidOperationException("Connection string not found.");
