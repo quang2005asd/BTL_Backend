@@ -118,7 +118,7 @@ namespace DNU.CanteenConnect.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,CanteenStaff")]
-        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,Description,Price,ImageUrl,IsAvailable,IsSpecialOfTheDay,FoodCategoryCategoryId,CanteenId")] FoodItem foodItem)
+        public async Task<IActionResult> Edit(int id, [Bind("ItemId,Name,Description,Price,ImageUrl,IsAvailable,IsSpecialOfTheDay,StockQuantity,FoodCategoryCategoryId,CanteenId")] FoodItem foodItem)
         {
             if (id != foodItem.ItemId) return NotFound();
             ModelState.Remove("FoodCategory");
