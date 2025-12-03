@@ -1,89 +1,276 @@
 ﻿@model IEnumerable<DNU.CanteenConnect.Web.Models.Order>
 
 @{
-    ViewData["Title"] = "Lịch sử Đơn hàng";
+    ViewData["Title"] = "Lịch Sử Đơn Hàng";
 }
 
-<div class="container py-5">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="text-center section-title mb-5">Lịch sử Đơn hàng của tôi</h1>
-        </div>
+<style>
+    .order-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25);
+    }
+
+    .order-header h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .order-header i {
+        font-size: 3rem;
+    }
+
+    .table-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+    }
+
+    .table-responsive {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .table {
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table thead {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .table thead th {
+        border: none;
+        padding: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.85rem;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table tbody tr:hover {
+        background: linear-gradient(90deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        transform: scale(1.01);
+    }
+
+    .table tbody td {
+        padding: 16px 18px;
+        vertical-align: middle;
+        color: #2d3748;
+    }
+
+    .order-id {
+        font-weight: 700;
+        color: #667eea;
+        font-family: 'Courier New', monospace;
+    }
+
+    .order-date {
+        color: #718096;
+        font-size: 0.95rem;
+    }
+
+    .order-amount {
+        font-weight: 700;
+        color: #43e97b;
+        font-size: 1rem;
+    }
+
+    .badge-status {
+        display: inline-block;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+    }
+
+    .badge-success {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        color: white;
+    }
+
+    .badge-info {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+
+    .badge-warning {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        color: white;
+    }
+
+    .badge-secondary {
+        background: linear-gradient(135deg, #cbd5e0 0%, #a0aec0 100%);
+        color: white;
+    }
+
+    .badge-danger {
+        background: linear-gradient(135deg, #ff6e7f 0%, #fc6767 100%);
+        color: white;
+    }
+
+    .badge-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .btn-action {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+
+    .btn-action:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(79, 172, 254, 0.3);
+    }
+
+    .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        color: #cbd5e0;
+        margin-bottom: 20px;
+    }
+
+    .empty-state p {
+        font-size: 1.1rem;
+        color: #718096;
+        margin: 0;
+    }
+
+    .alert {
+        border: none;
+        border-left: 4px solid;
+        border-radius: 8px;
+        margin-bottom: 20px;
+    }
+
+    .alert-success {
+        border-left-color: #43e97b;
+        background: linear-gradient(90deg, rgba(67, 233, 123, 0.1) 0%, rgba(56, 249, 215, 0.1) 100%);
+        color: #22543d;
+    }
+
+    .alert-danger {
+        border-left-color: #ff6e7f;
+        background: linear-gradient(90deg, rgba(255, 110, 127, 0.1) 0%, rgba(252, 103, 103, 0.1) 100%);
+        color: #742a2a;
+    }
+</style>
+
+<div class="container-fluid py-5">
+    <!-- Order History Header -->
+    <div class="order-header mb-5">
+        <h1>
+            <i class="fas fa-history"></i>
+            Lịch Sử Đơn Hàng Của Tôi
+        </h1>
     </div>
 
+    <!-- Alerts -->
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
             @TempData["SuccessMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     }
     @if (TempData["ErrorMessage"] != null)
     {
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
             @TempData["ErrorMessage"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     }
 
-    <div class="card shadow-lg p-4 mb-5">
-        <div class="card-body p-0">
-            @if (Model != null && Model.Any())
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover mt-3">
-                        <thead class="table-dark">
+    <!-- Table Section -->
+    <div class="table-card">
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-hashtag me-2"></i>Mã Đơn Hàng</th>
+                            <th><i class="fas fa-calendar me-2"></i>Ngày Đặt</th>
+                            <th><i class="fas fa-money-bill me-2"></i>Tổng Tiền</th>
+                            <th><i class="fas fa-flag me-2"></i>Trạng Thái</th>
+                            <th><i class="fas fa-credit-card me-2"></i>Thanh Toán</th>
+                            <th><i class="fas fa-store me-2"></i>Nhà Ăn</th>
+                            <th class="text-center"><i class="fas fa-cog me-2"></i>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>Mã Đơn hàng</th>
-                                <th>Ngày Đặt hàng</th>
-                                <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
-                                <th>Phương thức TT</th>
-                                <th>Nhà ăn</th>
-                                <th class="text-center">Hành động</th>
+                                <td><span class="order-id">#@item.OrderId</span></td>
+                                <td><span class="order-date">@item.OrderDate.ToString("dd/MM/yyyy HH:mm")</span></td>
+                                <td><span class="order-amount">@item.TotalAmount.ToString("N0") VNĐ</span></td>
+                                <td>
+                                    <span class="badge-status @(item.Status == "Completed" || item.Status == "Paid" ? "badge-success" : item.Status == "AwaitingPaymentConfirmation" || item.Status == "PaymentSubmitted" ? "badge-info" : item.Status == "Pending" ? "badge-warning" : item.Status == "Preparing" || item.Status == "Ready" ? "badge-primary" : item.Status == "Cancelled" ? "badge-danger" : "badge-secondary")">
+                                        @DNU.CanteenConnect.Web.Controllers.OrderHistoryController.GetStatusDisplayName(item.Status)
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge-status badge-secondary">
+                                        @(item.PaymentMethod == "BankTransfer" ? "🏦 Chuyển Khoản" : "💵 COD")
+                                    </span>
+                                </td>
+                                <td>@item.Canteen!.Name</td>
+                                <td class="text-center">
+                                    <a asp-controller="OrderHistory" asp-action="Details" asp-route-id="@item.OrderId" 
+                                       class="btn-action" data-bs-toggle="tooltip" title="Chi tiết đơn hàng">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>#@Html.DisplayFor(modelItem => item.OrderId)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.OrderDate)</td>
-                                    <td>@item.TotalAmount.ToString("N0") VNĐ</td>
-                                    <td>
-                                        <span class="badge 
-                                            @(item.Status == "Completed" ? "bg-success" : 
-                                              item.Status == "Paid" ? "bg-success" : 
-                                              item.Status == "AwaitingPaymentConfirmation" ? "bg-info" : 
-                                              item.Status == "PaymentSubmitted" ? "bg-warning text-dark" : 
-                                              item.Status == "Pending" ? "bg-secondary" : 
-                                              item.Status == "Preparing" ? "bg-primary" : 
-                                              item.Status == "Ready" ? "bg-success" : 
-                                              item.Status == "Cancelled" ? "bg-danger" : 
-                                              "bg-secondary")">
-                                            @DNU.CanteenConnect.Web.Controllers.OrderHistoryController.GetStatusDisplayName(item.Status) @* Sử dụng hàm helper để dịch trạng thái *@
-                                        </span>
-                                    </td>
-                                    <td>@(item.PaymentMethod == "BankTransfer" ? "Chuyển khoản" : "COD")</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Canteen!.Name)</td> @* Hiển thị tên nhà ăn *@
-                                    <td class="text-center">
-                                        <a asp-controller="OrderHistory" asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-info btn-sm mx-1" data-bs-toggle="tooltip" title="Chi tiết">
-                                            <i class="fas fa-info-circle"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-info text-center py-4 my-3 rounded-pill" role="alert">
-                    <i class="fas fa-info-circle me-2"></i> Bạn chưa có đơn hàng nào.
-                </div>
-            }
-        </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>Bạn chưa có đơn hàng nào</p>
+            </div>
+        }
     </div>
 </div>
 

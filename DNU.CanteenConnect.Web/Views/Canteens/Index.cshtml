@@ -4,71 +4,264 @@
     ViewData["Title"] = "Quản lý Nhà ăn";
 }
 
-<div class="container py-5">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="text-center section-title mb-5">Quản lý Nhà ăn</h1>
-        </div>
+<style>
+    .admin-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25);
+    }
+
+    .admin-header h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .admin-header i {
+        font-size: 3rem;
+    }
+
+    .btn-create {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        color: white !important;
+        border: none;
+        font-weight: 700;
+        padding: 14px 32px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(67, 233, 123, 0.25);
+        font-size: 1rem;
+    }
+
+    .btn-create:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(67, 233, 123, 0.35);
+    }
+
+    .table-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+    }
+
+    .table-responsive {
+        border-radius: 16px;
+        overflow: hidden;
+    }
+
+    .table {
+        margin: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table thead {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+
+    .table thead th {
+        border: none;
+        padding: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.85rem;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .table tbody tr:hover {
+        background: linear-gradient(90deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        transform: scale(1.01);
+    }
+
+    .table tbody td {
+        padding: 16px 18px;
+        vertical-align: middle;
+        color: #2d3748;
+    }
+
+    .canteen-name {
+        font-weight: 700;
+        color: #667eea;
+        font-size: 1.1rem;
+    }
+
+    .canteen-location {
+        color: #718096;
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .canteen-hours {
+        color: #43e97b;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .btn-action {
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: none;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-edit {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        color: white;
+    }
+
+    .btn-edit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(250, 112, 154, 0.3);
+    }
+
+    .btn-info-action {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+
+    .btn-info-action:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(79, 172, 254, 0.3);
+    }
+
+    .btn-delete {
+        background: linear-gradient(135deg, #ff6e7f 0%, #fc6767 100%);
+        color: white;
+    }
+
+    .btn-delete:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(255, 110, 127, 0.3);
+    }
+
+    .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .empty-state i {
+        font-size: 4rem;
+        color: #cbd5e0;
+        margin-bottom: 20px;
+    }
+
+    .empty-state p {
+        font-size: 1.1rem;
+        color: #718096;
+        margin: 0;
+    }
+
+    .create-button-wrapper {
+        margin-bottom: 30px;
+    }
+</style>
+
+<div class="container-fluid py-5">
+    <!-- Admin Header -->
+    <div class="admin-header mb-5">
+        <h1>
+            <i class="fas fa-building"></i>
+            Quản Lý Nhà Ăn
+        </h1>
     </div>
 
-    <div class="card shadow-lg p-4 mb-5">
-        <div class="card-header bg-transparent border-0 pb-0">
-            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
-                <a asp-controller="Canteens" asp-action="Create" class="btn btn-primary btn-lg custom-btn mb-2 mb-md-0">
-                    <i class="fas fa-plus-circle me-2"></i> Thêm Nhà ăn Mới
-                </a>
-                @* Bạn có thể thêm phần tìm kiếm tại đây nếu cần, tương tự như FoodItems/Index *@
-                @* <form asp-controller="Canteens" asp-action="Index" method="get" class="d-flex mb-2 mb-md-0">
-                    <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" class="form-control me-2" placeholder="Tìm kiếm nhà ăn..." />
-                    <button type="submit" class="btn btn-secondary"><i class="fas fa-search"></i></button>
-                </form> *@
-            </div>
-        </div>
+    <!-- Create Button -->
+    <div class="create-button-wrapper">
+        <a asp-controller="Canteens" asp-action="Create" class="btn-create">
+            <i class="fas fa-plus-circle me-2"></i> Thêm Nhà Ăn Mới
+        </a>
+    </div>
 
-        <div class="card-body p-0">
-            @if (Model != null && Model.Any())
-            {
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover mt-3">
-                        <thead class="table-dark">
+    <!-- Table Section -->
+    <div class="table-card">
+        @if (Model != null && Model.Any())
+        {
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-store me-2"></i>Tên Nhà Ăn</th>
+                            <th><i class="fas fa-map-marker-alt me-2"></i>Địa Chỉ</th>
+                            <th><i class="fas fa-clock me-2"></i>Giờ Mở Cửa</th>
+                            <th class="text-center"><i class="fas fa-cog me-2"></i>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
                             <tr>
-                                <th>@Html.DisplayNameFor(model => model.Name)</th>
-                                <th>@Html.DisplayNameFor(model => model.Location)</th>
-                                <th>@Html.DisplayNameFor(model => model.OpeningHours)</th>
-                                <th class="text-center">Hành động</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Location)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.OpeningHours)</td>
-                                    <td class="text-center">
-                                        <a asp-controller="Canteens" asp-action="Edit" asp-route-id="@item.CanteenId" class="btn btn-warning btn-sm mx-1" data-bs-toggle="tooltip" title="Chỉnh sửa">
+                                <td><span class="canteen-name">@Html.DisplayFor(modelItem => item.Name)</span></td>
+                                <td>
+                                    <span class="canteen-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        @Html.DisplayFor(modelItem => item.Location)
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="canteen-hours">
+                                        <i class="fas fa-clock"></i>
+                                        @Html.DisplayFor(modelItem => item.OpeningHours)
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a asp-controller="Canteens" asp-action="Edit" asp-route-id="@item.CanteenId" 
+                                           class="btn-action btn-edit" data-bs-toggle="tooltip" title="Chỉnh sửa">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a asp-controller="Canteens" asp-action="Details" asp-route-id="@item.CanteenId" class="btn btn-info btn-sm mx-1" data-bs-toggle="tooltip" title="Chi tiết">
-                                            <i class="fas fa-info-circle"></i>
+                                        <a asp-controller="Canteens" asp-action="Details" asp-route-id="@item.CanteenId" 
+                                           class="btn-action btn-info-action" data-bs-toggle="tooltip" title="Chi tiết">
+                                            <i class="fas fa-eye"></i>
                                         </a>
-                                        <a asp-controller="Canteens" asp-action="Delete" asp-route-id="@item.CanteenId" class="btn btn-danger btn-sm mx-1" data-bs-toggle="tooltip" title="Xóa">
+                                        <a asp-controller="Canteens" asp-action="Delete" asp-route-id="@item.CanteenId" 
+                                           class="btn-action btn-delete" data-bs-toggle="tooltip" title="Xóa"
+                                           onclick="return confirm('Bạn chắc chắn muốn xóa nhà ăn này?');">
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </td>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-info text-center py-4 my-3 rounded-pill" role="alert">
-                    <i class="fas fa-info-circle me-2"></i> Chưa có nhà ăn nào được thêm.
-                </div>
-            }
-        </div>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                <i class="fas fa-inbox"></i>
+                <p>Chưa có nhà ăn nào được thêm</p>
+            </div>
+        }
     </div>
 </div>
 

@@ -1,16 +1,28 @@
 ﻿<Project>
   <ItemGroup>
-    <StaticWebAssetEndpoint Include="_content/DNU.CanteenConnect.Web/css/site.9wjgcuwwrv.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+    <StaticWebAssetEndpoint Include="_content/DNU.CanteenConnect.Web/css/modern.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\modern.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"9wjgcuwwrv"},{"Name":"integrity","Value":"sha256-R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ="},{"Name":"label","Value":"_content/DNU.CanteenConnect.Web/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"24571"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=\u0022"},{"Name":"Last-Modified","Value":"Sat, 29 Nov 2025 13:36:39 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-lCf4J\u002BhyzxwAO8f2\u002B1Lid1SHn9u\u002BDbbpisjxz\u002BuyVvo="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"19575"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022lCf4J\u002BhyzxwAO8f2\u002B1Lid1SHn9u\u002BDbbpisjxz\u002BuyVvo=\u0022"},{"Name":"Last-Modified","Value":"Wed, 03 Dec 2025 13:48:11 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/DNU.CanteenConnect.Web/css/modern.kknt3yq36t.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\modern.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kknt3yq36t"},{"Name":"integrity","Value":"sha256-lCf4J\u002BhyzxwAO8f2\u002B1Lid1SHn9u\u002BDbbpisjxz\u002BuyVvo="},{"Name":"label","Value":"_content/DNU.CanteenConnect.Web/css/modern.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"19575"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022lCf4J\u002BhyzxwAO8f2\u002B1Lid1SHn9u\u002BDbbpisjxz\u002BuyVvo=\u0022"},{"Name":"Last-Modified","Value":"Wed, 03 Dec 2025 13:48:11 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DNU.CanteenConnect.Web/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"24571"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=\u0022"},{"Name":"Last-Modified","Value":"Sat, 29 Nov 2025 13:36:39 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"24880"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=\u0022"},{"Name":"Last-Modified","Value":"Wed, 03 Dec 2025 14:08:58 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/DNU.CanteenConnect.Web/css/site.hht0upvb9o.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"hht0upvb9o"},{"Name":"integrity","Value":"sha256-u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w="},{"Name":"label","Value":"_content/DNU.CanteenConnect.Web/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"24880"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=\u0022"},{"Name":"Last-Modified","Value":"Wed, 03 Dec 2025 14:08:58 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/DNU.CanteenConnect.Web/DNU.CanteenConnect.Web.16pnghh9pw.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\DNU.CanteenConnect.Web.16pnghh9pw.bundle.scp.css'))</AssetFile>

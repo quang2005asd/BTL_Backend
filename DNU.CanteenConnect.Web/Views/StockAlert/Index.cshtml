@@ -1,0 +1,262 @@
+@model List<DNU.CanteenConnect.Web.Models.LowStockAlert>
+
+@{
+    ViewData["Title"] = "Quản Lý Kho Hàng";
+    var currentPage = ViewBag.CurrentPage;
+    var totalPages = ViewBag.TotalPages;
+    var activeCount = ViewBag.ActiveCount;
+    var criticalCount = ViewBag.CriticalCount;
+    var criticalItems = (List<DNU.CanteenConnect.Web.Models.LowStockAlert>)ViewBag.CriticalItems;
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="card shadow-sm border-0 mb-4">
+                <div class="card-header bg-gradient" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                    <h5 class="mb-0">
+                        <i class="fas fa-box-open me-2"></i>
+                        Danh Sách Thông Báo Kho Hàng
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Count == 0)
+                    {
+                        <div class="alert alert-info text-center" role="alert">
+                            <i class="fas fa-info-circle me-2"></i>
+                            Không có thông báo kho hàng nào
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Số Lượng Hiện Tại</th>
+                                        <th>Ngưỡng Cảnh Báo</th>
+                                        <th>Trạng Thái</th>
+                                        <th>Ngày Tạo</th>
+                                        <th>Thao Tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var alert in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@alert.FoodItem?.Name</strong>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-danger">@alert.CurrentStock</span>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted">@alert.ThresholdStock</span>
+                                            </td>
+                                            <td>
+                                                @if (alert.AlertStatus == "Active")
+                                                {
+                                                    if (alert.CurrentStock < 3)
+                                                    {
+                                                        <span class="badge bg-danger">
+                                                            <i class="fas fa-exclamation-triangle me-1"></i>
+                                                            Tới Hạn
+                                                        </span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="badge bg-warning">
+                                                            <i class="fas fa-exclamation me-1"></i>
+                                                            Thiếu Hàng
+                                                        </span>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-success">
+                                                        <i class="fas fa-check-circle me-1"></i>
+                                                        Đã Xử Lý
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">@alert.CreatedAt.ToString("dd/MM/yyyy HH:mm")</small>
+                                            </td>
+                                            <td>
+                                                @if (alert.AlertStatus == "Active")
+                                                {
+                                                    <button class="btn btn-sm btn-outline-success mark-resolved" 
+                                                            data-id="@alert.AlertId"
+                                                            title="Đánh dấu đã xử lý">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <span class="text-muted text-center d-block">—</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        @if (totalPages > 1)
+                        {
+                            <nav class="mt-4">
+                                <ul class="pagination justify-content-center">
+                                    @if (currentPage > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="1" title="Trang đầu">
+                                                <i class="fas fa-chevron-double-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)" title="Trang trước">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </a>
+                                        </li>
+                                    }
+
+                                    @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
+                                    {
+                                        @if (i == currentPage)
+                                        {
+                                            <li class="page-item active">
+                                                <span class="page-link">@i</span>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li class="page-item">
+                                                <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                                            </li>
+                                        }
+                                    }
+
+                                    @if (currentPage < totalPages)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)" title="Trang sau">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" asp-action="Index" asp-route-page="@totalPages" title="Trang cuối">
+                                                <i class="fas fa-chevron-double-right"></i>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-3">
+            <!-- Statistics -->
+            <div class="card shadow-sm border-0 mb-3">
+                <div class="card-header bg-light border-bottom">
+                    <h6 class="mb-0">
+                        <i class="fas fa-chart-bar me-2 text-primary"></i>
+                        Thống Kê
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">Tổng Cảnh Báo</span>
+                            <span class="badge bg-primary rounded-pill">@ViewBag.TotalAlerts</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">Cảnh Báo Hoạt Động</span>
+                            <span class="badge bg-warning rounded-pill">@activeCount</span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="text-muted">Cảnh Báo Tới Hạn (&lt;3)</span>
+                            <span class="badge bg-danger rounded-pill">@criticalCount</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Critical Items -->
+            @if (criticalItems != null && criticalItems.Count > 0)
+            {
+                <div class="card shadow-sm border-0 border-danger">
+                    <div class="card-header bg-danger text-white border-0">
+                        <h6 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            Sản Phẩm Tới Hạn
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            @foreach (var item in criticalItems.Take(5))
+                            {
+                                <div class="list-group-item px-0 py-2">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h6 class="mb-1 text-danger">@item.FoodItem?.Name</h6>
+                                            <small class="text-muted">Còn: @item.CurrentStock sản phẩm</small>
+                                        </div>
+                                        <span class="badge bg-danger">@item.CurrentStock</span>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        @if (criticalItems.Count > 5)
+                        {
+                            <small class="text-muted d-block text-center mt-2">+@(criticalItems.Count - 5) sản phẩm khác</small>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Mark alert as resolved
+            $(document).on('click', '.mark-resolved', function () {
+                var btn = $(this);
+                var alertId = btn.data('id');
+
+                $.post('/StockAlert/MarkResolved', { id: alertId }, function (response) {
+                    if (response.success) {
+                        // Reload page to show updated list
+                        location.reload();
+                    } else {
+                        alert('Lỗi: ' + response.message);
+                    }
+                }).fail(function () {
+                    alert('Lỗi khi cập nhật trạng thái');
+                });
+            });
+
+            // Auto-refresh critical items every 30 seconds
+            setInterval(function () {
+                $.get('/StockAlert/GetCriticalItems', function (data) {
+                    var badge = $('[data-critical-count]');
+                    if (badge.length) {
+                        badge.text(data.count);
+                    }
+                });
+            }, 30000);
+        });
+    </script>
+}

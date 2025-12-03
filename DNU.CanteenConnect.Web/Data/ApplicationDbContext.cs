@@ -25,6 +25,8 @@ namespace DNU.CanteenConnect.Web.Data
         public DbSet<Cart> Carts { get; set; } = default!;
         public DbSet<CartItem> CartItems { get; set; } = default!;
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Notification> Notifications { get; set; } = default!;
+        public DbSet<LowStockAlert> LowStockAlerts { get; set; } = default!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -86,6 +88,46 @@ namespace DNU.CanteenConnect.Web.Data
                 .WithMany()
                 .HasForeignKey(ci => ci.FoodItemId)
                 .OnDelete(DeleteBehavior.Restrict); // GIỮ NGUYÊN
+
+            // --- NOTIFICATION CONFIGURATION ---
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.User)
+                .WithMany()
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade); // Khi user bị xóa, notifications cũng bị xóa
+
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.Order)
+                .WithMany()
+                .HasForeignKey(n => n.OrderId)
+                .OnDelete(DeleteBehavior.Cascade); // Khi order bị xóa, notifications cũng bị xóa
+
+            // Index for faster queries
+            modelBuilder.Entity<Notification>()
+                .HasIndex(n => new { n.UserId, n.CreatedAt })
+                .IsDescending(false, true); // UserId ascending, CreatedAt descending
+
+            // --- LOW STOCK ALERT CONFIGURATION ---
+            modelBuilder.Entity<LowStockAlert>()
+                .HasOne(lsa => lsa.FoodItem)
+                .WithMany()
+                .HasForeignKey(lsa => lsa.FoodItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<LowStockAlert>()
+                .HasOne(lsa => lsa.Canteen)
+                .WithMany()
+                .HasForeignKey(lsa => lsa.CanteenId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Indexes for efficient alert queries
+            modelBuilder.Entity<LowStockAlert>()
+                .HasIndex(lsa => new { lsa.FoodItemId, lsa.CreatedAt })
+                .IsDescending(false, true);
+
+            modelBuilder.Entity<LowStockAlert>()
+                .HasIndex(lsa => new { lsa.CanteenId, lsa.AlertStatus, lsa.CreatedAt })
+                .IsDescending(false, false, true);
 
             // --- GIỮ NGUYÊN TOÀN BỘ PHẦN SEED DATA CỦA BẠN ---
             // Seed Canteen

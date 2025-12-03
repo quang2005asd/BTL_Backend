@@ -1,77 +1,357 @@
 ﻿@model IEnumerable<DNU.CanteenConnect.Web.Models.MenuItemViewModel>
 @{
-    ViewData["Title"] = "Thực đơn";
+    ViewData["Title"] = "Thực Đơn";
 }
 
-<div class="container mt-5 pt-5 pb-5">
-    <h1 class="section-title">@ViewData["Title"]</h1>
+<style>
+    .menu-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        border-radius: 20px;
+        margin-bottom: 40px;
+        box-shadow: 0 12px 40px rgba(102, 126, 234, 0.25);
+    }
 
-    <div class="card shadow-sm mb-5 p-4 rounded-md">
-        <div class="card-body">
-            <h4 class="card-title mb-4">
-                <i class="fas fa-filter me-2" style="color: var(--primary-color);"></i> Lọc Thực đơn
-            </h4>
+    .menu-header h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
 
-            <div class="row g-3 align-items-end">
-                <div class="col-md-6 col-lg-4">
-                    <label for="menuDate" class="form-label fw-bold">
-                        <i class="fas fa-calendar-alt me-2 text-muted"></i>Chọn ngày
-                    </label>
-                    <input type="date" class="form-control" id="menuDate" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")" />
-                </div>
-                <div class="col-md-6 col-lg-4">
-                    <label for="canteenSelect" class="form-label fw-bold">
-                        <i class="fas fa-store me-2 text-muted"></i>Chọn Nhà ăn
-                    </label>
-                    <select class="form-select" id="canteenSelect" asp-items="ViewBag.CanteenOptions">
-                        <option value="">Tất cả</option>
-                    </select>
-                </div>
+    .menu-header i {
+        font-size: 3rem;
+    }
+
+    .filter-card {
+        background: white;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+        margin-bottom: 40px;
+    }
+
+    .filter-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .filter-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .filter-group {
+        flex: 1;
+        min-width: 200px;
+    }
+
+    .filter-group label {
+        font-weight: 700;
+        color: #2d3748;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 0.5px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    .filter-group input,
+    .filter-group select {
+        border-radius: 12px;
+        border: 2px solid #e2e8f0;
+        padding: 12px 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        width: 100%;
+    }
+
+    .filter-group input:focus,
+    .filter-group select:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        outline: none;
+    }
+
+    .menu-items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+
+    @@media (max-width: 1024px) {
+        .menu-items-grid {
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+    }
+
+    @@media (max-width: 768px) {
+        .menu-items-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+        }
+    }
+
+    .food-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid transparent;
+        position: relative;
+    }
+
+    .food-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(102, 126, 234, 0.25);
+        border-color: #667eea;
+    }
+
+    .food-card.sold-out {
+        opacity: 0.6;
+    }
+
+    .food-card-image {
+        width: 100%;
+        height: 240px;
+        object-fit: cover;
+        display: block;
+        transition: all 0.3s ease;
+    }
+
+    .food-card:hover .food-card-image {
+        transform: scale(1.05);
+    }
+
+    .sold-out-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        font-weight: 700;
+        z-index: 10;
+    }
+
+    .food-card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .food-card-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+
+    .food-card-title a {
+        text-decoration: none;
+        color: inherit;
+        transition: color 0.3s ease;
+    }
+
+    .food-card-title a:hover {
+        color: #667eea;
+    }
+
+    .rating-stars {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 12px;
+        font-size: 0.9rem;
+    }
+
+    .rating-display {
+        color: #43e97b;
+        font-weight: 600;
+    }
+
+    .rating-count {
+        color: #718096;
+        font-size: 0.85rem;
+    }
+
+    .food-card-description {
+        color: #718096;
+        font-size: 0.9rem;
+        margin-bottom: 16px;
+        flex: 1;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .food-card-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding-top: 16px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .food-card-price {
+        font-size: 1.25rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .btn-add-cart {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        color: white !important;
+        border: none;
+        font-weight: 700;
+        padding: 10px 16px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(67, 233, 123, 0.2);
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .btn-add-cart:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(67, 233, 123, 0.3);
+    }
+
+    .btn-add-cart:disabled {
+        background: #cbd5e0 !important;
+        cursor: not-allowed;
+        box-shadow: none;
+    }
+
+    .empty-message {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+    .empty-message i {
+        font-size: 4rem;
+        color: #cbd5e0;
+        margin-bottom: 20px;
+    }
+
+    .empty-message p {
+        font-size: 1.1rem;
+        color: #718096;
+        margin: 0;
+    }
+</style>
+
+<div class="container-fluid py-5">
+    <!-- Menu Header -->
+    <div class="menu-header mb-5">
+        <h1>
+            <i class="fas fa-utensils"></i>
+            Thực Đơn Hôm Nay
+        </h1>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-card">
+        <div class="filter-title">
+            <i class="fas fa-filter"></i>
+            Lọc Thực Đơn
+        </div>
+
+        <div class="filter-row">
+            <div class="filter-group">
+                <label for="menuDate">
+                    <i class="fas fa-calendar-alt me-2"></i>Chọn Ngày
+                </label>
+                <input type="date" class="form-control" id="menuDate" value="@ViewBag.SelectedDate.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="filter-group">
+                <label for="canteenSelect">
+                    <i class="fas fa-store me-2"></i>Chọn Nhà Ăn
+                </label>
+                <select class="form-select" id="canteenSelect" asp-items="ViewBag.CanteenOptions">
+                    <option value="">-- Tất Cả --</option>
+                </select>
             </div>
         </div>
     </div>
 
-    <h2 class="section-title">Các món ăn có sẵn</h2>
-    <div id="menuItems" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <!-- Menu Items Grid -->
+    <div id="menuItems" class="menu-items-grid">
         @if (Model != null && Model.Any())
         {
             @foreach (var item in Model)
             {
-                <div class="col">
-                    <div class="card h-100 shadow-sm food-card @(item.FoodItem.StockQuantity <= 0 ? "sold-out" : "")">
-                        @if (item.FoodItem.StockQuantity <= 0)
-                        {
-                            <div class="sold-out-overlay">
-                                <span>Hết hàng</span>
-                            </div>
-                        }
-                        <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/Menu/Index">
-                            <img src="@(item.FoodItem.ImageUrl ?? "https://placehold.co/400x250/cccccc/ffffff?text=No+Image")" class="card-img-top food-item-img" alt="@item.FoodItem.Name" />
-                        </a>
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">
-                                <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/Menu/Index" class="text-decoration-none text-dark">
-                                    @item.FoodItem.Name
-                                </a>
-                            </h5>
+                <div class="food-card @(item.FoodItem.StockQuantity <= 0 ? "sold-out" : "")">
+                    @if (item.FoodItem.StockQuantity <= 0)
+                    {
+                        <div class="sold-out-overlay">
+                            <span><i class="fas fa-times-circle me-2"></i> Hết Hàng</span>
+                        </div>
+                    }
+                    <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" asp-route-returnUrl="/Menu/Index">
+                        <img src="@(item.FoodItem.ImageUrl ?? "https://placehold.co/400x250/cccccc/ffffff?text=No+Img")" 
+                             class="food-card-image" alt="@item.FoodItem.Name" />
+                    </a>
 
-                            <div class="review-display d-flex align-items-center mb-2" 
-                                 data-rating="@item.AverageRating.ToString("F1")" 
-                                 data-count="@item.ReviewCount" 
-                                 style="height: 24px;">
-                            </div>
+                    <div class="food-card-body">
+                        <h5 class="food-card-title">
+                            <a asp-controller="FoodItems" asp-action="Details" asp-route-id="@item.FoodItem.ItemId" 
+                               asp-route-returnUrl="/Menu/Index">
+                                @item.FoodItem.Name
+                            </a>
+                        </h5>
 
-                            <p class="card-text text-muted flex-grow-1">@item.FoodItem.Description</p>
-                            <div class="d-flex justify-content-between align-items-center mt-auto">
-                                <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">@item.FoodItem.Price.ToString("N0") VNĐ</p>
-                                <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
-                                        data-item-id="@item.FoodItem.ItemId"
-                                        data-item-name="@item.FoodItem.Name"
-                                        data-item-price="@item.FoodItem.Price"
-                                        @(item.FoodItem.StockQuantity <= 0 ? "disabled" : "")>
-                                    <i class="fas fa-cart-plus me-2"></i> Thêm
-                                </button>
-                            </div>
+                        <div class="rating-stars">
+                            @if (item.ReviewCount > 0)
+                            {
+                                <span class="rating-display">⭐ @item.AverageRating.ToString("F1")</span>
+                                <span class="rating-count">(@item.ReviewCount đánh giá)</span>
+                            }
+                            else
+                            {
+                                <span class="rating-count"><i class="fas fa-star-half-alt"></i> Chưa có đánh giá</span>
+                            }
+                        </div>
+
+                        <p class="food-card-description">@(item.FoodItem.Description ?? "Không có mô tả")</p>
+
+                        <div class="food-card-footer">
+                            <span class="food-card-price">@item.FoodItem.Price.ToString("N0") VNĐ</span>
+                            <button type="button" class="btn-add-cart add-to-cart-btn"
+                                    data-item-id="@item.FoodItem.ItemId"
+                                    data-item-name="@item.FoodItem.Name"
+                                    data-item-price="@item.FoodItem.Price"
+                                    @(item.FoodItem.StockQuantity <= 0 ? "disabled" : "")>
+                                <i class="fas fa-cart-plus me-1"></i> Thêm
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -79,12 +359,14 @@
         }
         else
         {
-            <div class="col-12 text-center text-muted mt-5">
-                <p>Chưa có món ăn nào có sẵn để hiển thị.</p>
+            <div class="empty-message">
+                <i class="fas fa-inbox"></i>
+                <p>Chưa có món ăn nào có sẵn để hiển thị</p>
             </div>
         }
     </div>
 </div>
+
 <form id="antiForgeryForm" method="post" style="display:none;">
     @Html.AntiForgeryToken()
 </form>
@@ -95,25 +377,14 @@
     <script>
         function renderFractionalStars(rating, count) {
             if (count > 0) {
-                const percentage = (rating / 5.0) * 100;
                 const formattedRating = parseFloat(rating).toFixed(1);
-                const starsHtml = `
-                    <div class="rating-stars-fractional" title="${formattedRating} sao">
-                        <div class="stars-overlay" style="width: ${percentage}%;"></div>
-                    </div>`;
-                return `${starsHtml}<span class="text-muted ms-2 small">${formattedRating} (${count} đánh giá)</span>`;
+                return `<span class="rating-display">⭐ ${formattedRating}</span><span class="rating-count">(${count} đánh giá)</span>`;
             } else {
-                return '<span class="text-muted small">Chưa có đánh giá</span>';
+                return '<span class="rating-count"><i class="fas fa-star-half-alt"></i> Chưa có đánh giá</span>';
             }
         }
 
         $(document).ready(function () {
-            $('.review-display').each(function () {
-                const rating = $(this).data('rating').toString().replace(',', '.');
-                const count = parseInt($(this).data('count'));
-                $(this).html(renderFractionalStars(parseFloat(rating), count));
-            });
-
             $('#menuDate, #canteenSelect').on('change', function () {
                 const date = $('#menuDate').val();
                 const canteenId = $('#canteenSelect').val();
@@ -133,42 +404,41 @@
                     items.forEach(item => {
                         const isSoldOut = item.stockQuantity <= 0;
                         const soldOutClass = isSoldOut ? "sold-out" : "";
-                        const soldOutOverlay = isSoldOut ? `<div class="sold-out-overlay"><span>Hết hàng</span></div>` : "";
+                        const soldOutOverlay = isSoldOut ? `<div class="sold-out-overlay"><span><i class="fas fa-times-circle me-2"></i> Hết Hàng</span></div>` : "";
                         const disabledAttr = isSoldOut ? "disabled" : "";
                         const ratingHtml = renderFractionalStars(item.averageRating, item.reviewCount);
+                        
                         const itemHtml = `
-                            <div class="col">
-                                <div class="card h-100 shadow-sm food-card ${soldOutClass}">
-                                    ${soldOutOverlay}
-                                    <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index">
-                                        <img src="${item.imageUrl || 'https://placehold.co/400x250/cccccc/ffffff?text=No+Image'}" class="card-img-top food-item-img" alt="${item.name}" />
-                                    </a>
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title">
-                                            <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index" class="text-decoration-none text-dark">${item.name}</a>
-                                        </h5>
-                                        <div class="d-flex align-items-center mb-2" style="height: 24px;">
-                                            ${ratingHtml}
-                                        </div>
-                                        <p class="card-text text-muted flex-grow-1">${item.description || ''}</p>
-                                        <div class="d-flex justify-content-between align-items-center mt-auto">
-                                            <p class="card-text fw-bold fs-5 mb-0" style="color: var(--primary-dark);">${item.price.toLocaleString('vi-VN')} VNĐ</p>
-                                            <button type="button" class="btn btn-success btn-sm add-to-cart-btn"
-                                                    data-item-id="${item.itemId}" data-item-name="${item.name}" data-item-price="${item.price}" ${disabledAttr}>
-                                                <i class="fas fa-cart-plus me-2"></i> Thêm
-                                            </button>
-                                        </div>
+                            <div class="food-card ${soldOutClass}">
+                                ${soldOutOverlay}
+                                <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index">
+                                    <img src="${item.imageUrl || 'https://placehold.co/400x250/cccccc/ffffff?text=No+Img'}" 
+                                         class="food-card-image" alt="${item.name}" />
+                                </a>
+                                <div class="food-card-body">
+                                    <h5 class="food-card-title">
+                                        <a href="/FoodItems/Details/${item.itemId}?returnUrl=/Menu/Index">${item.name}</a>
+                                    </h5>
+                                    <div class="rating-stars">
+                                        ${ratingHtml}
+                                    </div>
+                                    <p class="food-card-description">${item.description || 'Không có mô tả'}</p>
+                                    <div class="food-card-footer">
+                                        <span class="food-card-price">${item.price.toLocaleString('vi-VN')} VNĐ</span>
+                                        <button type="button" class="btn-add-cart add-to-cart-btn"
+                                                data-item-id="${item.itemId}" data-item-name="${item.name}" data-item-price="${item.price}" ${disabledAttr}>
+                                            <i class="fas fa-cart-plus me-1"></i> Thêm
+                                        </button>
                                     </div>
                                 </div>
                             </div>`;
                         menuItemsContainer.append(itemHtml);
                     });
                 } else {
-                    menuItemsContainer.append('<div class="col-12 text-center text-muted mt-5"><p>Chưa có món ăn nào phù hợp.</p></div>');
+                    menuItemsContainer.append('<div class="empty-message"><i class="fas fa-inbox"></i><p>Chưa có món ăn nào phù hợp</p></div>');
                 }
             }
 
-            // Gửi AJAX để thêm vào giỏ hàng
             $('#menuItems').on('click', '.add-to-cart-btn', function () {
                 const foodItemId = $(this).data('item-id');
                 const antiForgeryToken = $('#antiForgeryForm input[name="__RequestVerificationToken"]').val();
@@ -184,12 +454,9 @@
                     success: function (response) {
                         if (response.success) {
                             showToast(response.message, 'success');
-
-                            // Cập nhật số lượng trên navbar
                             if (typeof updateNavbarCartCount === 'function') {
                                 updateNavbarCartCount();
                             }
-
                             $(window).trigger('cartUpdated');
                         } else {
                             showToast(response.message, 'danger');

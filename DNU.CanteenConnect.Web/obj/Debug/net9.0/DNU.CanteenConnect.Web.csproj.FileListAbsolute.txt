@@ -643,7 +643,6 @@ C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.Canteen
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\nezrqnk58p-muycvpuwrr.gz
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\v0zgfp0y55-87fc7y1x7t.gz
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\yfc7ypekbg-mlv21k5csn.gz
-C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\rjg121fodt-9wjgcuwwrv.gz
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\sgframwoaw-61n19gt1b8.gz
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\o47096k67l-d2p9b1nmye.gz
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\r54tjz7y3y-t1cqhe9u97.gz
@@ -723,3 +722,5 @@ C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.Canteen
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\DNU.CanteenConnect.Web.genruntimeconfig.cache
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\ref\DNU.CanteenConnect.Web.dll
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\tybv7njvj5-qc75iwxnqo.gz
+C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\kn48onjyej-kknt3yq36t.gz
+C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\rjg121fodt-hht0upvb9o.gz

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dev7r0yVD/dZ/MWIr/7ks2ucOrr4t2LBJaq5HOmlwP4=",
+  "Hash": "MZtD5k9D+y/J44UgHbRwpvwwdsbDIBiwaO/95Pto91E=",
   "Source": "DNU.CanteenConnect.Web",
   "BasePath": "_content/DNU.CanteenConnect.Web",
   "Mode": "Default",
@@ -2663,6 +2663,27 @@
       "OriginalItemSpec": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
+      "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\kn48onjyej-kknt3yq36t.gz",
+      "SourceId": "DNU.CanteenConnect.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DNU.CanteenConnect.Web",
+      "RelativePath": "css/modern#[.{fingerprint=kknt3yq36t}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\modern.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "x2b3lv1zhd",
+      "Integrity": "J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\modern.css"
+    },
+    {
       "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\l186vlgaag-37tfw0ft22.gz",
       "SourceId": "Microsoft.AspNetCore.Identity.UI",
       "SourceType": "Package",
@@ -3167,12 +3188,12 @@
       "OriginalItemSpec": "C:\\Users\\quang\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.6\\staticwebassets\\V5\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-9wjgcuwwrv.gz",
+      "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-hht0upvb9o.gz",
       "SourceId": "DNU.CanteenConnect.Web",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\",
       "BasePath": "_content/DNU.CanteenConnect.Web",
-      "RelativePath": "css/site#[.{fingerprint=9wjgcuwwrv}]?.css.gz",
+      "RelativePath": "css/site#[.{fingerprint=hht0upvb9o}]?.css.gz",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Alternative",
@@ -3181,8 +3202,8 @@
       "RelatedAsset": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css",
       "AssetTraitName": "Content-Encoding",
       "AssetTraitValue": "gzip",
-      "Fingerprint": "d0n64ca786",
-      "Integrity": "A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0=",
+      "Fingerprint": "wylnpeitad",
+      "Integrity": "CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css"
@@ -4049,6 +4070,27 @@
       "OriginalItemSpec": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\DNU.CanteenConnect.Web.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\modern.css",
+      "SourceId": "DNU.CanteenConnect.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\",
+      "BasePath": "_content/DNU.CanteenConnect.Web",
+      "RelativePath": "css/modern#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kknt3yq36t",
+      "Integrity": "lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\modern.css"
+    },
+    {
       "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css",
       "SourceId": "DNU.CanteenConnect.Web",
       "SourceType": "Discovered",
@@ -4063,8 +4105,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "9wjgcuwwrv",
-      "Integrity": "R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=",
+      "Fingerprint": "hht0upvb9o",
+      "Integrity": "u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -5437,13 +5479,13 @@
   ],
   "Endpoints": [
     {
-      "Route": "css/site.9wjgcuwwrv.css",
-      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-9wjgcuwwrv.gz",
+      "Route": "css/modern.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\kn48onjyej-kknt3yq36t.gz",
       "Selectors": [
         {
           "Name": "Content-Encoding",
           "Value": "gzip",
-          "Quality": "0.000185459941"
+          "Quality": "0.000284171640"
         }
       ],
       "ResponseHeaders": [
@@ -5453,15 +5495,152 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5391"
+          "Value": "3518"
         },
         {
           "Name": "ETag",
-          "Value": "\"A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0=\""
+          "Value": "\"J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 29 Nov 2025 13:36:39 GMT"
+          "Value": "Wed, 03 Dec 2025 13:48:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo="
+        }
+      ]
+    },
+    {
+      "Route": "css/modern.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\modern.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19575"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:48:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo="
+        }
+      ]
+    },
+    {
+      "Route": "css/modern.css.gz",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\kn48onjyej-kknt3yq36t.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3518"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:48:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/modern.kknt3yq36t.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\kn48onjyej-kknt3yq36t.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000284171640"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3518"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:48:11 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5481,26 +5660,179 @@
         },
         {
           "Name": "ETag",
-          "Value": "W/\"R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=\""
+          "Value": "W/\"lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo=\""
         }
       ],
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "9wjgcuwwrv"
+          "Value": "kknt3yq36t"
         },
         {
           "Name": "label",
-          "Value": "css/site.css"
+          "Value": "css/modern.css"
         },
         {
           "Name": "integrity",
-          "Value": "sha256-R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ="
+          "Value": "sha256-lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo="
         }
       ]
     },
     {
-      "Route": "css/site.9wjgcuwwrv.css",
+      "Route": "css/modern.kknt3yq36t.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\modern.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "19575"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:48:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kknt3yq36t"
+        },
+        {
+          "Name": "label",
+          "Value": "css/modern.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-lCf4J+hyzxwAO8f2+1Lid1SHn9u+Dbbpisjxz+uyVvo="
+        }
+      ]
+    },
+    {
+      "Route": "css/modern.kknt3yq36t.css.gz",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\kn48onjyej-kknt3yq36t.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3518"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:48:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kknt3yq36t"
+        },
+        {
+          "Name": "label",
+          "Value": "css/modern.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-J8QiRnVrMlKboyJ6C9sdJb5GKytOsYuNygnFF52H1VQ="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-hht0upvb9o.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000184263866"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5426"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 14:08:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css",
       "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -5510,7 +5842,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "24571"
+          "Value": "24880"
         },
         {
           "Name": "Content-Type",
@@ -5518,11 +5850,156 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=\""
+          "Value": "\"u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 29 Nov 2025 13:36:39 GMT"
+          "Value": "Wed, 03 Dec 2025 14:08:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.css.gz",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-hht0upvb9o.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5426"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 14:08:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.hht0upvb9o.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-hht0upvb9o.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000184263866"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "5426"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 14:08:58 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hht0upvb9o"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.hht0upvb9o.css",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "24880"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 14:08:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5532,7 +6009,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "9wjgcuwwrv"
+          "Value": "hht0upvb9o"
         },
         {
           "Name": "label",
@@ -5540,13 +6017,13 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ="
+          "Value": "sha256-u9h78KwoKsiiA8TQIWSxTHjj8jreKsYjbgUexN41J0w="
         }
       ]
     },
     {
-      "Route": "css/site.9wjgcuwwrv.css.gz",
-      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-9wjgcuwwrv.gz",
+      "Route": "css/site.hht0upvb9o.css.gz",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-hht0upvb9o.gz",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5555,7 +6032,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "5391"
+          "Value": "5426"
         },
         {
           "Name": "Content-Type",
@@ -5563,11 +6040,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0=\""
+          "Value": "\"CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 29 Nov 2025 13:36:39 GMT"
+          "Value": "Wed, 03 Dec 2025 14:08:58 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -5585,7 +6062,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "9wjgcuwwrv"
+          "Value": "hht0upvb9o"
         },
         {
           "Name": "label",
@@ -5593,144 +6070,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-9wjgcuwwrv.gz",
-      "Selectors": [
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip",
-          "Quality": "0.000185459941"
-        }
-      ],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5391"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 29 Nov 2025 13:36:39 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "W/\"R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=\""
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "24571"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 29 Nov 2025 13:36:39 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-R3MQgbAhv3KJ5u4WmOED5HacayynqfYT7hBOjR8IWpQ="
-        }
-      ]
-    },
-    {
-      "Route": "css/site.css.gz",
-      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\rjg121fodt-9wjgcuwwrv.gz",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "5391"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 29 Nov 2025 13:36:39 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        },
-        {
-          "Name": "Content-Encoding",
-          "Value": "gzip"
-        },
-        {
-          "Name": "Vary",
-          "Value": "Content-Encoding"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-A7LqtXJVgwOgEoAHVZBzGxShdxPqdUamiSKR7X+aos0="
+          "Value": "sha256-CCCvDJ4pGjz2Svcrt6R3sZbrWH5XuQ/uzcYPxydiK1s="
         }
       ]
     },

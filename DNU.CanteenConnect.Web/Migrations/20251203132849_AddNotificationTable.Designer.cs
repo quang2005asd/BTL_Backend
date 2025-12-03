@@ -3,6 +3,7 @@ using System;
 using DNU.CanteenConnect.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DNU.CanteenConnect.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251203132849_AddNotificationTable")]
+    partial class AddNotificationTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -347,52 +350,6 @@ namespace DNU.CanteenConnect.Web.Migrations
                         });
                 });
 
-            modelBuilder.Entity("DNU.CanteenConnect.Web.Models.LowStockAlert", b =>
-                {
-                    b.Property<int>("AlertId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AlertId"));
-
-                    b.Property<string>("AlertStatus")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
-                    b.Property<int>("CanteenId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("CurrentStock")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("FoodItemId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<DateTime?>("ResolvedAt")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("ThresholdStock")
-                        .HasColumnType("integer");
-
-                    b.HasKey("AlertId");
-
-                    b.HasIndex("FoodItemId", "CreatedAt")
-                        .IsDescending(false, true);
-
-                    b.HasIndex("CanteenId", "AlertStatus", "CreatedAt")
-                        .IsDescending(false, false, true);
-
-                    b.ToTable("LowStockAlerts");
-                });
-
             modelBuilder.Entity("DNU.CanteenConnect.Web.Models.MenuItem", b =>
                 {
                     b.Property<int>("MenuItemId")
@@ -688,13 +645,13 @@ namespace DNU.CanteenConnect.Web.Migrations
                             Id = "d125130b-d248-4395-8178-01124e5251a4",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "f286828a-1a3b-4c4f-a719-7f51a4e21a2c",
-                            CreatedDate = new DateTime(2025, 12, 3, 13, 38, 1, 81, DateTimeKind.Utc).AddTicks(4502),
+                            CreatedDate = new DateTime(2025, 12, 3, 13, 28, 48, 565, DateTimeKind.Utc).AddTicks(9150),
                             Email = "admin@canteen.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@CANTEEN.COM",
                             NormalizedUserName = "ADMIN@CANTEEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELL/rwXRtxe6k8FLGJiSG/Cds3foCWOTHlW2fNt19EsOhpa5RbA3gqKUti9dvbCGkw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDbBQvheNbF7UBOl/0KnHcc6xmigz2mm2S1pHv14Ez+EdQ1+U5MHhsdpOucTsnQ/VQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "0a5a51c4-118d-4f11-9a74-9f20e4b868e4",
                             TwoFactorEnabled = false,
@@ -875,25 +832,6 @@ namespace DNU.CanteenConnect.Web.Migrations
                     b.Navigation("Canteen");
 
                     b.Navigation("FoodCategory");
-                });
-
-            modelBuilder.Entity("DNU.CanteenConnect.Web.Models.LowStockAlert", b =>
-                {
-                    b.HasOne("DNU.CanteenConnect.Web.Models.Canteen", "Canteen")
-                        .WithMany()
-                        .HasForeignKey("CanteenId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DNU.CanteenConnect.Web.Models.FoodItem", "FoodItem")
-                        .WithMany()
-                        .HasForeignKey("FoodItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Canteen");
-
-                    b.Navigation("FoodItem");
                 });
 
             modelBuilder.Entity("DNU.CanteenConnect.Web.Models.MenuItem", b =>

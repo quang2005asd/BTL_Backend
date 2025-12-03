@@ -116,6 +116,19 @@ namespace DNU.CanteenConnect.Web.Controllers
             string displayName = GetStatusDisplayName(newStatus);
             await _hubContext.Clients.User(order.UserId).SendAsync("ReceiveOrderStatusUpdate", orderId, newStatus, displayName);
             
+            // --- LƯU THÔNG BÁO VÀO DATABASE ---
+            var notification = new Notification
+            {
+                UserId = order.UserId,
+                OrderId = orderId,
+                Message = $"Đơn hàng #{orderId} đã được cập nhật thành '{displayName}'",
+                NotificationType = "OrderStatusUpdate",
+                CreatedAt = DateTime.Now,
+                IsRead = false
+            };
+            _context.Notifications.Add(notification);
+            await _context.SaveChangesAsync();
+            
             TempData["SuccessMessage"] = $"Đã cập nhật trạng thái đơn hàng #{orderId} thành '{displayName}'.";
             return RedirectToAction(nameof(Details), new { id = orderId });
         }
@@ -140,6 +153,19 @@ namespace DNU.CanteenConnect.Web.Controllers
                 // --- GỬI THÔNG BÁO REAL-TIME BẰNG SIGNALR ---
                 string displayName = GetStatusDisplayName("Paid");
                 await _hubContext.Clients.User(order.UserId).SendAsync("ReceiveOrderStatusUpdate", orderId, "Paid", displayName);
+                
+                // --- LƯU THÔNG BÁO VÀO DATABASE ---
+                var notification = new Notification
+                {
+                    UserId = order.UserId,
+                    OrderId = orderId,
+                    Message = $"Thanh toán cho đơn hàng #{orderId} đã được xác nhận",
+                    NotificationType = "PaymentConfirmed",
+                    CreatedAt = DateTime.Now,
+                    IsRead = false
+                };
+                _context.Notifications.Add(notification);
+                await _context.SaveChangesAsync();
                 
                 TempData["SuccessMessage"] = $"Đã xác nhận thanh toán cho đơn hàng #{orderId}.";
             }

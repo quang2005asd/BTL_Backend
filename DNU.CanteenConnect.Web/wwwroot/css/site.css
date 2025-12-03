@@ -22,15 +22,16 @@ body {
 
 /* Custom CSS variables for consistent theming */
 :root {
-  --primary-color: #ff8c00;
-  --primary-dark: #cc6d00;
-  --secondary-color: #6c757d;
-  --accent-color: #007bff;
-  --text-color: #343a40;
-  --light-text-color: #6c757d;
+  --primary-color: #667eea;
+  --primary-dark: #764ba2;
+  --secondary-color: #cbd5e0;
+  --accent-color: #43e97b;
+  --text-color: #2d3748;
+  --light-text-color: #718096;
   --light-bg: #ffffff;
-  --soft-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  --strong-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  --soft-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+  --strong-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 /* Navbar styles - Modern and clean */
@@ -49,7 +50,10 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-size: 1.3rem; /* Adjusted from layout */
-  color: var(--primary-dark);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   display: flex;
   align-items: center;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -82,8 +86,8 @@ body {
 .navbar-nav .nav-link:hover {
   color: var(--primary-color) !important;
   transform: translateY(-3px);
-  background-color: rgba(255, 140, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(255, 140, 0, 0.2);
+  background-color: rgba(102, 126, 234, 0.08);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
 }
 
 .navbar-nav .nav-link .fas,
@@ -123,11 +127,10 @@ body {
   margin-left: 12px;
   font-weight: 600;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.25);
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  background-color: var(--primary-color);
-  background-image: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  background: var(--primary-gradient);
   will-change: transform, box-shadow; /* Optimize button animations */
 }
 
@@ -135,7 +138,7 @@ body {
 .navbar-nav .register-btn:hover,
 .navbar-nav .logout-btn:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
   opacity: 0.95;
 }
 
@@ -162,7 +165,7 @@ body {
 }
 
 #cart-icon:hover {
-  background-color: rgba(255, 140, 0, 0.08);
+  background-color: rgba(102, 126, 234, 0.08);
 }
 
 .cart-count {
@@ -256,7 +259,10 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
   font-size: 3.2rem;
-  color: var(--primary-dark);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-align: center;
   margin-top: 90px;
   margin-bottom: 60px;
@@ -273,9 +279,9 @@ body {
   bottom: -20px;
   width: 120px;
   height: 6px;
-  background-color: var(--primary-color);
+  background: var(--primary-gradient);
   border-radius: 4px;
-  box-shadow: 0 3px 10px rgba(255, 140, 0, 0.5);
+  box-shadow: 0 3px 10px rgba(102, 126, 234, 0.25);
 }
 
 /* Food Card Styles */
@@ -303,7 +309,10 @@ body {
 .food-card .card-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  color: var(--primary-dark);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-size: 1.9rem;
   margin-bottom: 12px;
 }
@@ -416,25 +425,23 @@ body {
 
 .form-control:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.3rem rgba(255, 140, 0, 0.3);
+  box-shadow: 0 0 0 0.3rem rgba(102, 126, 234, 0.25);
 }
 
 /* Button styles */
 .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background: var(--primary-gradient);
+  border: none;
   border-radius: 10px;
   padding: 12px 25px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(102, 126, 234, 0.2);
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
 }
 
 /* Additional styles from provided site.css */
@@ -457,7 +464,7 @@ body {
   left: -50px;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(255, 140, 0, 0.15) 0%, rgba(255, 140, 0, 0) 70%);
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, rgba(102, 126, 234, 0) 70%);
   border-radius: 50%;
   animation: pulse1 8s infinite alternate ease-in-out;
   will-change: transform, opacity;
@@ -489,7 +496,10 @@ body {
 .jumbotron .display-5 {
   font-family: 'Poppins', sans-serif;
   font-weight: 800;
-  color: var(--primary-dark);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin-bottom: 30px;
   font-size: 3.5rem;
 }
@@ -507,22 +517,20 @@ body {
 }
 
 .jumbotron .btn-lg {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background: var(--primary-gradient);
+  border: none;
   font-size: 1.45rem;
   padding: 20px 40px;
   border-radius: 35px;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.25);
 }
 
 .jumbotron .btn-lg:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
 }
 
 .about-image-wrapper {
@@ -548,7 +556,10 @@ body {
 .about-section h3 {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  color: var(--primary-dark);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   font-size: 2.2rem;
   margin-bottom: 25px;
 }
@@ -561,22 +572,20 @@ body {
 }
 
 .about-section .btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background: var(--primary-gradient);
+  border: none;
   border-radius: 35px;
   padding: 14px 28px;
   font-weight: 700;
   transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 8px rgba(102, 126, 234, 0.25);
 }
 
 .about-section .btn-primary:hover {
-  background-color: var(--primary-dark);
-  border-color: var(--primary-dark);
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4);
 }
 
 .btn-secondary {
@@ -665,7 +674,7 @@ body {
 }
 
 .table-dark th {
-  background-color: var(--primary-dark);
+  background: var(--primary-gradient);
   color: white;
   font-weight: 700;
   text-transform: uppercase;
@@ -685,7 +694,7 @@ body {
 }
 
 .table-hover tbody tr:hover {
-  background-color: rgba(255, 140, 0, 0.05);
+  background-color: rgba(102, 126, 234, 0.05);
 }
 
 .card {
@@ -698,7 +707,10 @@ body {
 .card-title {
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  color: var(--primary-dark);
+  background: var(--primary-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .toast-container {
@@ -761,8 +773,7 @@ body {
   font-weight: 700;
   font-size: 1.25rem;
   padding: 1.2rem 1.5rem;
-  background-color: var(--primary-color) !important;
-  background-image: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+  background: var(--primary-gradient) !important;
   color: white;
   border-bottom: none;
   border-top-left-radius: 18px !important;
@@ -851,7 +862,7 @@ body {
 .bootstrap-select.show .dropdown-toggle,
 .bootstrap-select .dropdown-toggle:focus {
   border-color: var(--primary-color);
-  box-shadow: 0 0 0 0.3rem rgba(255, 140, 0, 0.3);
+  box-shadow: 0 0 0 0.3rem rgba(102, 126, 234, 0.25);
   outline: 0;
 }
 
@@ -869,8 +880,8 @@ body {
 .bootstrap-select .dropdown-item:active,
 .bootstrap-select .dropdown-item:focus,
 .bootstrap-select .dropdown-item:hover {
-  background-color: rgba(255, 140, 0, 0.1);
-  color: var(--primary-dark);
+  background-color: rgba(102, 126, 234, 0.15);
+  color: var(--primary-color);
 }
 
 .bootstrap-select .bs-ok-default {
@@ -1021,7 +1032,7 @@ img {
 .pagination .page-item.active .page-link {
   background-color: var(--primary-color, #0d6efd);
   color: white;
-  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2), 0 1px 3px rgba(102, 126, 234, 0.08);
 }
 
 .pagination .page-item:not(.active) .page-link:hover {

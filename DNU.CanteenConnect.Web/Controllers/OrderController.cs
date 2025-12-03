@@ -1,6 +1,7 @@
 ﻿// DNU.CanteenConnect.Web/Controllers/OrderController.cs
 using DNU.CanteenConnect.Web.Data;
 using DNU.CanteenConnect.Web.Models;
+using DNU.CanteenConnect.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -21,11 +22,13 @@ namespace DNU.CanteenConnect.Web.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<User> _userManager;
+        private readonly IStockAlertService _alertService;
 
-        public OrderController(ApplicationDbContext context, UserManager<User> userManager)
+        public OrderController(ApplicationDbContext context, UserManager<User> userManager, IStockAlertService alertService)
         {
             _context = context;
             _userManager = userManager;
+            _alertService = alertService;
         }
 
         // GET: /Order/Checkout
@@ -135,6 +138,9 @@ namespace DNU.CanteenConnect.Web.Controllers
                 {
                     foodItem.StockQuantity -= cartItem.Quantity;
                     if (foodItem.StockQuantity < 0) foodItem.StockQuantity = 0; // Ensure stock doesn't go negative
+                    
+                    // Check and create stock alert if needed
+                    await _alertService.CheckAndCreateAlertAsync(cartItem.FoodItemId, selectedCanteenId, foodItem.StockQuantity);
                 }
             }
 

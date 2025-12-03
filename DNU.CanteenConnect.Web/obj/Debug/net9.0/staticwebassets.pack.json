@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\DNU.CanteenConnect.Web.16pnghh9pw.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\modern.css",
+      "PackagePath": "staticwebassets\\css\\modern.css"
+    },
+    {
       "Id": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

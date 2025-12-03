@@ -384,6 +384,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVudVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/quang/OneDrive/Desktop/Code/_backend/DNU.CanteenConnect.Web/DNU.CanteenConnect.Web/Views/Notification/History.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTm90aWZpY2F0aW9uXEhpc3RvcnkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/quang/OneDrive/Desktop/Code/_backend/DNU.CanteenConnect.Web/DNU.CanteenConnect.Web/Views/OrderHistory/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJIaXN0b3J5XERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -410,6 +414,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/quang/OneDrive/Desktop/Code/_backend/DNU.CanteenConnect.Web/DNU.CanteenConnect.Web/Views/Profile/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/quang/OneDrive/Desktop/Code/_backend/DNU.CanteenConnect.Web/DNU.CanteenConnect.Web/Views/StockAlert/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvY2tBbGVydFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/quang/OneDrive/Desktop/Code/_backend/DNU.CanteenConnect.Web/DNU.CanteenConnect.Web/Views/UserManagement/Index.cshtml]

@@ -1,6 +1,7 @@
 using DNU.CanteenConnect.Web.Data;
 using DNU.CanteenConnect.Web.Hubs;
 using DNU.CanteenConnect.Web.Models;
+using DNU.CanteenConnect.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -50,6 +51,7 @@ builder.Services.AddSession(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSignalR(); // Thêm dịch vụ SignalR
+builder.Services.AddScoped<IStockAlertService, StockAlertService>(); // Register StockAlertService
 
 // ========== 4. BUILD APP ==========
 var app = builder.Build();
