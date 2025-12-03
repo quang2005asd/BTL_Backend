@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\images\\logo.png"
     },
     {
+      "Id": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\notification-hub.js",
+      "PackagePath": "staticwebassets\\js\\notification-hub.js"
+    },
+    {
       "Id": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -2,9 +2,11 @@
 using DNU.CanteenConnect.Web.Data;
 using DNU.CanteenConnect.Web.Models;
 using DNU.CanteenConnect.Web.Helpers; // <-- THÊM USING NÀY
+using DNU.CanteenConnect.Web.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,10 +19,12 @@ namespace DNU.CanteenConnect.Web.Controllers
     public class OrderManagementController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public OrderManagementController(ApplicationDbContext context)
+        public OrderManagementController(ApplicationDbContext context, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // --- CÁC PHẦN SAU ĐƯỢC GIỮ NGUYÊN 100% TỪ CODE CỦA BẠN ---
@@ -107,7 +111,12 @@ namespace DNU.CanteenConnect.Web.Controllers
             }
             order.Status = newStatus;
             await _context.SaveChangesAsync();
-            TempData["SuccessMessage"] = $"Đã cập nhật trạng thái đơn hàng #{orderId} thành '{GetStatusDisplayName(newStatus)}'.";
+            
+            // --- GỬI THÔNG BÁO REAL-TIME BẰNG SIGNALR ---
+            string displayName = GetStatusDisplayName(newStatus);
+            await _hubContext.Clients.User(order.UserId).SendAsync("ReceiveOrderStatusUpdate", orderId, newStatus, displayName);
+            
+            TempData["SuccessMessage"] = $"Đã cập nhật trạng thái đơn hàng #{orderId} thành '{displayName}'.";
             return RedirectToAction(nameof(Details), new { id = orderId });
         }
 
@@ -127,6 +136,11 @@ namespace DNU.CanteenConnect.Web.Controllers
             {
                 order.Status = "Paid"; // Chuyển trạng thái thành "Đã thanh toán"
                 await _context.SaveChangesAsync();
+                
+                // --- GỬI THÔNG BÁO REAL-TIME BẰNG SIGNALR ---
+                string displayName = GetStatusDisplayName("Paid");
+                await _hubContext.Clients.User(order.UserId).SendAsync("ReceiveOrderStatusUpdate", orderId, "Paid", displayName);
+                
                 TempData["SuccessMessage"] = $"Đã xác nhận thanh toán cho đơn hàng #{orderId}.";
             }
             else

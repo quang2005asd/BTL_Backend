@@ -128,6 +128,14 @@ namespace DNU.CanteenConnect.Web.Controllers
                     PriceAtOrder = cartItem.PriceAtAddition // Lưu giá tại thời điểm đặt hàng để đảm bảo tính chính xác lịch sử
                 };
                 _context.OrderItems.Add(orderItem); // Thêm mục đơn hàng vào DbContext
+
+                // --- DECREMENT STOCK QUANTITY ---
+                var foodItem = await _context.FoodItems.FindAsync(cartItem.FoodItemId);
+                if (foodItem != null)
+                {
+                    foodItem.StockQuantity -= cartItem.Quantity;
+                    if (foodItem.StockQuantity < 0) foodItem.StockQuantity = 0; // Ensure stock doesn't go negative
+                }
             }
 
             // Xóa các món ăn trong giỏ hàng sau khi đã đặt hàng thành công

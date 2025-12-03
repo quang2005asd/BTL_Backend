@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "DsU+F3WjD7r1+2Z6lhroDBCjcljsAbp1lbiPOxjmXfg=",
+  "Hash": "dev7r0yVD/dZ/MWIr/7ks2ucOrr4t2LBJaq5HOmlwP4=",
   "Source": "DNU.CanteenConnect.Web",
   "BasePath": "_content/DNU.CanteenConnect.Web",
   "Mode": "Default",
@@ -3482,6 +3482,27 @@
       "OriginalItemSpec": "C:\\Users\\quang\\.nuget\\packages\\microsoft.aspnetcore.identity.ui\\9.0.6\\staticwebassets\\V5\\lib\\jquery\\dist\\jquery.js"
     },
     {
+      "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\tybv7njvj5-qc75iwxnqo.gz",
+      "SourceId": "DNU.CanteenConnect.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/DNU.CanteenConnect.Web",
+      "RelativePath": "js/notification-hub#[.{fingerprint=qc75iwxnqo}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\notification-hub.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "z4f2z0eee3",
+      "Integrity": "Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\notification-hub.js"
+    },
+    {
       "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\u3x0o4nl77-ynyaa8k90p.gz",
       "SourceId": "DNU.CanteenConnect.Web",
       "SourceType": "Discovered",
@@ -4110,6 +4131,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\logo.png"
+    },
+    {
+      "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\notification-hub.js",
+      "SourceId": "DNU.CanteenConnect.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\",
+      "BasePath": "_content/DNU.CanteenConnect.Web",
+      "RelativePath": "js/notification-hub#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "qc75iwxnqo",
+      "Integrity": "hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\notification-hub.js"
     },
     {
       "Identity": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\site.js",
@@ -15278,6 +15320,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-pkBYs6EOqn+ps0LmAPR/DClkEIDgBSW+k/XAOTujcWo="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.js",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\tybv7njvj5-qc75iwxnqo.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000720980534"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.js",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\notification-hub.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3698"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.js.gz",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\tybv7njvj5-qc75iwxnqo.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.qc75iwxnqo.js",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\tybv7njvj5-qc75iwxnqo.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000720980534"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qc75iwxnqo"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notification-hub.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.qc75iwxnqo.js",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\wwwroot\\js\\notification-hub.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3698"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qc75iwxnqo"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notification-hub.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.qc75iwxnqo.js.gz",
+      "AssetFile": "C:\\Users\\quang\\OneDrive\\Desktop\\Code\\_backend\\DNU.CanteenConnect.Web\\DNU.CanteenConnect.Web\\obj\\Debug\\net9.0\\compressed\\tybv7njvj5-qc75iwxnqo.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qc75iwxnqo"
+        },
+        {
+          "Name": "label",
+          "Value": "js/notification-hub.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY="
         }
       ]
     },

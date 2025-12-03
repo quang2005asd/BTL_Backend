@@ -722,3 +722,4 @@ C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.Canteen
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\DNU.CanteenConnect.Web.pdb
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\DNU.CanteenConnect.Web.genruntimeconfig.cache
 C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\ref\DNU.CanteenConnect.Web.dll
+C:\Users\quang\OneDrive\Desktop\Code\_backend\DNU.CanteenConnect.Web\DNU.CanteenConnect.Web\obj\Debug\net9.0\compressed\tybv7njvj5-qc75iwxnqo.gz

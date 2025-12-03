@@ -9592,6 +9592,304 @@
       ]
     },
     {
+      "Route": "js/notification-hub.js",
+      "AssetFile": "js/notification-hub.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000720980534"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.js",
+      "AssetFile": "js/notification-hub.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3698"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.js.gz",
+      "AssetFile": "js/notification-hub.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY="
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.qc75iwxnqo.js",
+      "AssetFile": "js/notification-hub.js.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000720980534"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qc75iwxnqo"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        },
+        {
+          "Name": "label",
+          "Value": "js/notification-hub.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.qc75iwxnqo.js",
+      "AssetFile": "js/notification-hub.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "3698"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qc75iwxnqo"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-hqkHKpedaBa/kifxGvSFgM6t69DvxmjwAioSu9wZ+hc="
+        },
+        {
+          "Name": "label",
+          "Value": "js/notification-hub.js"
+        }
+      ]
+    },
+    {
+      "Route": "js/notification-hub.qc75iwxnqo.js.gz",
+      "AssetFile": "js/notification-hub.js.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1386"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 03 Dec 2025 13:09:40 GMT"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "qc75iwxnqo"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-Ixx3bcjb6IdWblAT9oUhAHzHI43YnLuDEuqrubVvTXY="
+        },
+        {
+          "Name": "label",
+          "Value": "js/notification-hub.js.gz"
+        }
+      ]
+    },
+    {
       "Route": "js/site.d2p9b1nmye.js",
       "AssetFile": "js/site.js.gz",
       "Selectors": [

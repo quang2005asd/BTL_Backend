@@ -1,4 +1,5 @@
 using DNU.CanteenConnect.Web.Data;
+using DNU.CanteenConnect.Web.Hubs;
 using DNU.CanteenConnect.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,7 @@ builder.Services.AddSession(options =>
 // ========== 3. DỊCH VỤ MVC / RAZOR ==========
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR(); // Thêm dịch vụ SignalR
 
 // ========== 4. BUILD APP ==========
 var app = builder.Build();
@@ -95,5 +97,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+app.MapHub<NotificationHub>("/notificationHub"); // Ánh xạ Hub đến đường dẫn /notificationHub
 
 app.Run();
