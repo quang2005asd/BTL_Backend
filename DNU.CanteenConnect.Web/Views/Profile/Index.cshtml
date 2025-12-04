@@ -32,20 +32,20 @@
                 <hr class="mb-4" />
 
                 <dl class="row profile-details">
-                    <dt class="col-sm-4 text-muted">Tên người dùng:</dt>
+                    <dt class="col-sm-4 text-muted"><i class="fas fa-user me-2"></i>Tên người dùng:</dt>
                     <dd class="col-sm-8 fw-bold text-primary-dark">@Html.DisplayFor(model => model.UserName)</dd>
 
-                    <dt class="col-sm-4 text-muted">Email:</dt>
+                    <dt class="col-sm-4 text-muted"><i class="fas fa-envelope me-2"></i>Email:</dt>
                     <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
 
-                    <dt class="col-sm-4 text-muted">Số điện thoại:</dt>
+                    <dt class="col-sm-4 text-muted"><i class="fas fa-phone me-2"></i>Số điện thoại:</dt>
                     <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.PhoneNumber) ? "Chưa cung cấp" : Html.DisplayFor(model => model.PhoneNumber))</dd>
 
-                    <dt class="col-sm-4 text-muted">Địa chỉ:</dt>
+                    <dt class="col-sm-4 text-muted"><i class="fas fa-map-marker-alt me-2"></i>Địa chỉ:</dt>
                     <dd class="col-sm-8">@(string.IsNullOrEmpty(Model.Address) ? "Chưa cung cấp" : Html.DisplayFor(model => model.Address))</dd>
 
-                    <dt class="col-sm-4 text-muted">Ngày tham gia:</dt>
-                    <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedDate)</dd> @* CẬP NHẬT ĐỂ HIỂN THỊ CreatedDate *@
+                    <dt class="col-sm-4 text-muted"><i class="fas fa-calendar me-2"></i>Ngày tham gia:</dt>
+                    <dd class="col-sm-8">@Html.DisplayFor(model => model.CreatedDate)</dd>
                 </dl>
 
                 <div class="text-center mt-5">

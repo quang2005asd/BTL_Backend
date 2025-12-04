@@ -70,6 +70,7 @@ cartTotal = Model.CartItems.Sum(ci => ci.Quantity * ci.PriceAtAddition);
         gap: 15px;
         transition: all 0.3s ease;
         cursor: pointer;
+        padding-right: 50px;
     }
 
     .method-content i {
@@ -92,7 +93,7 @@ cartTotal = Model.CartItems.Sum(ci => ci.Quantity * ci.PriceAtAddition);
     .check-icon {
         display: none;
         position: absolute;
-        right: 20px;
+        right: 15px;
         top: 50%;
         transform: translateY(-50%);
         width: 32px;
@@ -103,6 +104,8 @@ cartTotal = Model.CartItems.Sum(ci => ci.Quantity * ci.PriceAtAddition);
         justify-content: center;
         color: white;
         font-weight: 700;
+        font-size: 1.1rem;
+        z-index: 10;
     }
 
     .qr-payment-section {
@@ -418,10 +421,10 @@ cartTotal = Model.CartItems.Sum(ci => ci.Quantity * ci.PriceAtAddition);
                             <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0;">
                                 <div style="flex: 1;">
                                     <div style="font-weight: 600; color: #2d3748; margin-bottom: 4px;">@item.FoodItem?.Name</div>
-                                    <div style="font-size: 0.9rem; color: #718096;">x@item.Quantity</div>
-                                </div>
-                                <div style="font-weight: 700; color: #667eea;">
-                                    @(item.Quantity * item.PriceAtAddition).ToString("N0") VNĐ
+                                    <div style="font-size: 0.9rem; color: #718096; margin-bottom: 4px;">Số lượng: x@(item.Quantity)</div>
+                                    <div style="font-weight: 700; color: #667eea;">
+                                        @((item.Quantity * item.PriceAtAddition).ToString("N0")) VNĐ
+                                    </div>
                                 </div>
                             </div>
                         }
